@@ -1,0 +1,42 @@
+﻿@page
+@model BankStartWeb.Pages.Customers.AccountsModel
+@{
+}
+
+<a class="back-btn" asp-page="/Customers/Customers" asp-route-id="@Model.Customer.Id">Tillbaka till Kunder</a>
+
+<h1>Customer Details</h1>
+
+<h2>Namn: @Model.Customer.Givenname @Model.Customer.Surname</h2>
+<h5>Land: @Model.Customer.Country</h5>
+<h5>Stad: @Model.Customer.City</h5>
+<h5>Telefonnummer: @Model.Customer.Telephone</h5>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Kontonummer</th>
+            <th>Kontotyp</th>
+            <th>Saldo</th>
+            <th>Skapad</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var acc in Model.Accounts)
+        {
+            <tr>
+                <td>@acc.Id</td>
+                <td>@acc.AccountType</td>
+                <td>@acc.Balance</td>
+                <td>@acc.Created</td>
+                <td><a class="view-account-details-btn" asp-page="/Customers/AccountDetails" asp-route-id="@acc.Id">View Transactions</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+

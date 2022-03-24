@@ -1,0 +1,32 @@
+﻿@page
+@model BankStartWeb.Pages.Customers.CustomersModel
+@{
+}
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Efternamn</th>
+            <th>Förnamn</th>
+            <th>Land</th>
+            <th>Stad</th>
+            <th>TelfonNummer</th>
+            <th>Email</th>
+            <th></th>
+        </tr>
+    </thead>
+    @foreach (var customer in Model.Customers)
+    {
+        <tr>
+            <td>@customer.Givenname</td>
+            <td>@customer.Surname</td>
+            <td>@customer.Country</td>
+            <td>@customer.City</td>
+            <td>@customer.Telephone</td>
+            <td>@customer.EmailAddress</td>
+            <td><a class="view-customer-details-btn" asp-page="/Customers/CustomerDetails" asp-route-id="@customer.Id">View Accounts</a></td>
+        </tr>
+    }
+</table>
