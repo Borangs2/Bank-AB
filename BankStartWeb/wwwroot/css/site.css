@@ -16,24 +16,3 @@ html {
 body {
   margin-bottom: 60px;
 }
-
-.bx{
-    color: white;
-    font-size: 24pt;
-}
-
-a{
-    text-decoration: none;
-}
-
-.tm-nav-item.active .bx{
-    color: #0CC;
-}
-
-.tm-nav-item:hover .bx {
-    color: #0CC;
-}
-
-.bxs-bank {
-    font-size: 30pt;
-}
