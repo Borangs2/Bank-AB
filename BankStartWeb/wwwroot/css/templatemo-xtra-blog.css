@@ -1,3 +1,7 @@
+*{
+    box-sizing: border-box;
+}
+
 /*
 
 TemplateMo 553 Xtra Blog
@@ -30,7 +34,6 @@ hr {
 .tm-header {
     background-color: #0CC;
     color: white;
-    
     position: fixed;
     top: 0;
     left: 0;
@@ -55,8 +58,8 @@ hr {
 }
 
 .tm-site-header {
-    margin-top: 50px;
-    margin-bottom: 115px;
+    margin-top: 10px;
+    margin-bottom: 65px;
 }
 
 .tm-site-logo {
@@ -175,6 +178,9 @@ ul {
 }
 
 .tm-search-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 60px;
     height: 60px;
     border: none;
@@ -292,6 +298,7 @@ ul {
     background-color: #0CC;
     color: white;
 }
+
 
 .tm-btn.disabled {
     background-color: #F0F0F0;
@@ -481,6 +488,7 @@ a:hover figcaption { color: #056767; }
         transition: all 0.3s ease;
         border-radius: 0;
         top: 5px;
+        box-shadow: none !important;
     }
 
     .tm-header.show .navbar-toggler { left: 320px; }
