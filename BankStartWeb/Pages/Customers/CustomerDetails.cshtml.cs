@@ -26,6 +26,7 @@ namespace BankStartWeb.Pages.Customers
 
         public List<AccountsViewModel> Accounts = new List<AccountsViewModel>();
         public Customer Customer { get; set; }
+        public string AmountInAccounts { get; set; }
 
         public void OnGet(int id)
         {
@@ -38,6 +39,8 @@ namespace BankStartWeb.Pages.Customers
                 Balance = acc.Balance,
                 Created = acc.Created
             }).ToList();
+
+            AmountInAccounts = string.Format("{0:0,0.00}", Customer.Accounts.Sum(sum => sum.Balance));
         }
     }
 }

@@ -11,6 +11,14 @@ a {
     text-decoration: none;
 }
 
+.index-data-table{
+    text-align: left;
+}
+
+.index-data-table td{
+    padding: 10px;
+}
+
 .tm-nav-item.active .bx {
     color: #0CC;
 }
