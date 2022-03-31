@@ -1,4 +1,5 @@
 using Bank_AB.Services;
+using Bank_AB.Services.Search;
 using BankStartWeb.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,10 @@ builder.Services.AddRazorPages();
 builder.Services.AddTransient<DataInitializer>();
 builder.Services.AddTransient<ICustomerService, CustomerService>();
 builder.Services.AddTransient<IAccountService, AccountService>();
+builder.Services.AddTransient<ISearchService<Customer>, CustomerSearchService>();
+builder.Services.AddTransient<ISearchService<Account>, AccountSearchService>();
+builder.Services.AddTransient<ISearchService<Transaction>, TransactionSearchService>();
+
 
 
 

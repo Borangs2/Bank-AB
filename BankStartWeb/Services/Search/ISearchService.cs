@@ -1,7 +1,7 @@
-﻿namespace Bank_AB.Services
+﻿namespace Bank_AB.Services.Search
 {
     public interface ISearchService<T>
     {
-        public IQueryable Search(IQueryable<T> query, string searchTerm);
+        public IQueryable<T> Search(IQueryable<T> query, string searchTerm);
     }
 }

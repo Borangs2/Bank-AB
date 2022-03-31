@@ -1,3 +1,4 @@
+using Bank_AB.Services.Search;
 using BankStartWeb.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -7,10 +8,12 @@ namespace BankStartWeb.Pages.Customers
     public class CustomersModel : PageModel
     {
         private readonly ApplicationDbContext _context;
+        private readonly ISearchService<Customer> _searchService;
 
-        public CustomersModel(ApplicationDbContext context)
+        public CustomersModel(ApplicationDbContext context, ISearchService<Customer> searchService)
         {
             _context = context;
+            _searchService = searchService;
         }
 
         public List<Customer> Customers { get; set; }
@@ -26,12 +29,12 @@ namespace BankStartWeb.Pages.Customers
             public string City { get; set; } = null!;
         }
 
+        [BindProperty(SupportsGet = true)]
+        public string SearchTerm { get; set; }
         public void OnGet()
         {
-            Customers = _context.Customers.Take(20).Select(cust => new Customer
+            var cust = _context.Customers.Take(20).Select(cust => new Customer
             {
-
-                
                 Id = cust.Id,
                 Givenname = cust.Givenname,
                 Surname = cust.Surname,
@@ -39,8 +42,14 @@ namespace BankStartWeb.Pages.Customers
                 Telephone = cust.Telephone,
                 EmailAddress = cust.EmailAddress,
                 City = cust.City
-            }).ToList();
+            });
 
+            if (!string.IsNullOrEmpty(SearchTerm))
+            {
+                cust = _searchService.Search(cust, SearchTerm);
+            }
+
+            Customers = cust.ToList();
 
         }
     }

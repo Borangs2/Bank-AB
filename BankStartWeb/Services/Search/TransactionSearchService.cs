@@ -4,9 +4,9 @@ namespace Bank_AB.Services.Search
 {
     public class TransactionSearchService : ISearchService<Transaction>
     {
-        public IQueryable Search(IQueryable<Transaction> query, string searchTerm)
+        public IQueryable<Transaction> Search(IQueryable<Transaction> query, string searchTerm)
         {
-            if (string.IsNullOrEmpty(searchTerm))
+            if (!string.IsNullOrEmpty(searchTerm))
             {
                 searchTerm = searchTerm.ToLower().Trim();
 

@@ -13,6 +13,11 @@
 <h5>Telefonnummer: @Model.Customer.Telephone</h5>
 
 
+<form method="GET">
+    <input asp-for="id" value="@Model.Customer.Id" />
+    <input asp-for="SearchTerm" placeholder=" Search Accounts..." autocomplete="off"/>
+</form>
+
 <table class="table">
     <thead>
         <tr>

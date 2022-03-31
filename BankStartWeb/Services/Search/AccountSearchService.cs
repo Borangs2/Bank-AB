@@ -4,9 +4,9 @@ namespace Bank_AB.Services.Search
 {
     public class AccountSearchService : ISearchService<Account>
     {
-        public IQueryable Search(IQueryable<Account> query, string searchTerm)
+        public IQueryable<Account> Search(IQueryable<Account> query, string searchTerm)
         {
-            if (string.IsNullOrEmpty(searchTerm))
+            if (!string.IsNullOrEmpty(searchTerm))
             {
                 searchTerm = searchTerm.ToLower().Trim();
 
