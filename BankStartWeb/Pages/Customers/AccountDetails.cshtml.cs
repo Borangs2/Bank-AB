@@ -1,3 +1,4 @@
+using Bank_AB.Services;
 using BankStartWeb.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -9,10 +10,12 @@ namespace BankStartWeb.Pages.Customers
     {
 
         private readonly ApplicationDbContext _context;
+        private readonly IAccountService _accountService;
 
-        public TransactionsModel(ApplicationDbContext context)
+        public TransactionsModel(ApplicationDbContext context, IAccountService accountService)
         {
             _context = context;
+            _accountService = accountService;
         }
 
         public class TransactionViewModel
@@ -30,7 +33,7 @@ namespace BankStartWeb.Pages.Customers
 
         public void OnGet(int id)
         {
-            Account = _context.Accounts.Include(trans => trans.Transactions).First(acc => acc.Id == id);
+            Account = _accountService.GetAccountFromId(id);
 
             CustomerId = _context.Customers.First(cust => cust.Accounts.Any(acc => acc.Id == id)).Id;
 
@@ -41,7 +44,8 @@ namespace BankStartWeb.Pages.Customers
                 Date = trans.Date,
                 Amount = trans.Amount,
                 NewBalance = trans.NewBalance
-            }).ToList();
+            })
+                .OrderByDescending(o => o.Date).ToList();
 
 
         }

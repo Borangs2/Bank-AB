@@ -24,7 +24,7 @@ namespace BankStartWeb.Pages
         {
             NumCustomers = _context.Customers.Count();
             NumAccounts = _context.Accounts.Count();
-            AmountInAccounts = string.Format("{0:0,0.00}", _context.Accounts.Sum(sum => sum.Balance));
+            AmountInAccounts = _context.Accounts.Sum(sum => sum.Balance).ToString("C");
         }
     }
 }

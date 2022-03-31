@@ -1,3 +1,4 @@
+using Bank_AB.Services;
 using BankStartWeb.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -9,10 +10,12 @@ namespace BankStartWeb.Pages.Customers
     {
 
         private readonly ApplicationDbContext _context;
+        private readonly ICustomerService _customerService;
 
-        public AccountsModel(ApplicationDbContext context)
+        public AccountsModel(ApplicationDbContext context, ICustomerService customerService)
         {
             _context = context;
+            _customerService = customerService;
         }
 
         public class AccountsViewModel
@@ -30,7 +33,7 @@ namespace BankStartWeb.Pages.Customers
 
         public void OnGet(int id)
         {
-            Customer = _context.Customers.Include(c => c.Accounts).First(cust => cust.Id == id);
+            Customer = _customerService.GetCustomerFromId(id);
 
             Accounts = Customer.Accounts.Select(acc => new AccountsViewModel
             {
@@ -40,7 +43,7 @@ namespace BankStartWeb.Pages.Customers
                 Created = acc.Created
             }).ToList();
 
-            AmountInAccounts = string.Format("{0:0,0.00}", Customer.Accounts.Sum(sum => sum.Balance));
+            AmountInAccounts = Customer.Accounts.Sum(sum => sum.Balance).ToString("C");
         }
     }
 }
