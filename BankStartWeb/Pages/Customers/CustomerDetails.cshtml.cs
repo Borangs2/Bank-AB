@@ -1,3 +1,4 @@
+using Bank_AB.Infrastructure.Paging;
 using Bank_AB.Services;
 using Bank_AB.Services.Search;
 using BankStartWeb.Data;
@@ -41,10 +42,18 @@ namespace BankStartWeb.Pages.Customers
 
         [BindProperty(SupportsGet = true)]
         public string SearchTerm { get; set; }
+        public int PageNum { get; set; }
+        public string SortOrder { get; set; }
+        public string SortCol { get; set; }
+        public int TotalPageCount { get; set; }
 
-        public void OnGet(int id)
+        public void OnGet(int id, string col = "Id", string order = "asc")
         {
             Customer = _customerService.GetCustomerFromId(id);
+
+            SortCol = col;
+            SortOrder = order;
+            
 
             var acc = Customer.Accounts.AsQueryable();
                 
@@ -55,7 +64,21 @@ namespace BankStartWeb.Pages.Customers
                 acc = _searchService.Search(acc, SearchTerm);
             }
 
-            Accounts = acc.Select(acc => new AccountsViewModel
+
+
+            var pageResult = acc.GetPaged(PageNum, 10);
+
+
+            var paged = pageResult.Results.AsQueryable();
+
+            pageResult.Results = paged.OrderBy(col,
+                            order == "asc" ? ExtensionMethods.QuerySortOrder.Asc :
+                            ExtensionMethods.QuerySortOrder.Desc).ToList();
+
+            TotalPageCount = pageResult.PageCount;
+
+
+            Accounts = pageResult.Results.Select(acc => new AccountsViewModel
             {
                 Id = acc.Id,
                 AccountType = acc.AccountType,
