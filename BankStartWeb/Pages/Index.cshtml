@@ -4,21 +4,23 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Välkommen</h1>
-    <table class="index-data-table">
-        <tr>
-            <td><h3>Antal Kunder: </h3></td>
-            <td><h3>@Model.NumCustomers</h3></td>
-        </tr>
-        <tr>
-            <td><h3>Antal Konton: </h3></td>
-            <td><h3>@Model.NumAccounts</h3></td>
-        </tr>
-        <tr>
-            <td><h3>Totalt Saldo: </h3></td>
-            <td><h3>@Model.AmountInAccounts</h3></td>
-        </tr>
-    </table>
+<section>
+    <div class="text-center">
+        <h1 class="display-4">Välkommen</h1>
+        <table class="index-data-table">
+            <tr>
+                <td><h3>Antal Kunder: </h3></td>
+                <td><h3>@Model.NumCustomers</h3></td>
+            </tr>
+            <tr>
+                <td><h3>Antal Konton: </h3></td>
+                <td><h3>@Model.NumAccounts</h3></td>
+            </tr>
+            <tr>
+                <td><h3>Totalt Saldo: </h3></td>
+                <td><h3>@Model.AmountInAccounts</h3></td>
+            </tr>
+        </table>
+    </div>
+</section>
 
-</div>
