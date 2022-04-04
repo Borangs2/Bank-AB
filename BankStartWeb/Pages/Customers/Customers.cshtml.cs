@@ -31,9 +31,15 @@ namespace BankStartWeb.Pages.Customers
 
         [BindProperty(SupportsGet = true)]
         public string SearchTerm { get; set; }
-        public void OnGet()
+
+        public int PageNum { get; set; }
+
+        public void OnGet(int pagenum=1)
         {
-            var cust = _context.Customers.Take(20).Select(cust => new Customer
+            PageNum = pagenum;
+            int toSkip = (PageNum - 1) * 20;
+
+            var cust = _context.Customers.Skip(toSkip).Take(20).Select(cust => new Customer
             {
                 Id = cust.Id,
                 Givenname = cust.Givenname,

@@ -4,7 +4,7 @@
 }
 
 <form method="GET">
-    <input asp-for="SearchTerm" placeholder=" Search Customers..." autocomplete="off"/>
+    <input asp-for="SearchTerm" placeholder=" Search Customers..." autocomplete="off" />
 </form>
 
 <table class="table">
@@ -31,4 +31,23 @@
             <td><a class="view-customer-details-btn" asp-page="/Customers/CustomerDetails" asp-route-id="@customer.Id">View Accounts</a></td>
         </tr>
     }
+    <tfoot>
+        <tr>
+            @if (Model.PageNum != 1)
+            {
+                <td><a asp-page="/Customers/Customers" asp-route-pagenum="@(Model.PageNum - 1)" asp-route-SearchTerm="@Model.SearchTerm">Förra</a></td>
+            }
+            else
+            {
+                <td></td>
+            }
+            <td></td>
+            <td></td>
+            <td><h4>Sida @Model.PageNum</h4></td>
+            <td></td>
+            <td></td>
+            <td><a asp-page="/Customers/Customers" asp-route-pagenum="@(Model.PageNum + 1)" asp-route-SearchTerm="@Model.SearchTerm">Nästa</a></td>
+        </tr>
+    </tfoot>
 </table>
+
