@@ -85,7 +85,7 @@
     <div class="paging-btn-container">
         @if (Model.PageNum != 1)
         {
-            <a class="paging-btn" sp-page="/Customers/Customers" asp-route-pagenum="@(Model.PageNum - 1)" asp-route-SearchTerm="@Model.SearchTerm" asp-route-SortOrder="@Model.SortOrder" , asp-route-SortCol="@Model.SortCol">Föregående</a>
+            <a class="paging-btn" asp-page="/Customers/Customers" asp-route-pagenum="@(Model.PageNum - 1)" asp-route-SearchTerm="@Model.SearchTerm" asp-route-SortOrder="@Model.SortOrder" , asp-route-SortCol="@Model.SortCol">Föregående</a>
         }
     </div>
     <div>

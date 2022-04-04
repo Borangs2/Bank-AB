@@ -12,50 +12,55 @@
 <h5>Saldo: @Model.Account.Balance</h5>
 
 <form method="GET">
-    <input asp-for="id" value="@Model.Account.Id" />
-    <input asp-for="SearchTerm" placeholder=" Search Transactions..." autocomplete="off"/>
+    <input asp-for="Id" value="@Model.Account.Id" />
+    <input asp-for="SearchTerm" placeholder=" Search Transactions..." autocomplete="off" />
 </form>
 
 <table class="table">
     <thead>
         <tr>
-            <th>Id
-                <a asp-page="/Customers/AccountDetails" asp-route-col="Id" asp-route-order="asc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-id="@Model.id">
+            <th>
+                Id
+                <a asp-page="/Customers/AccountDetails" asp-route-col="Id" asp-route-order="asc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-id="@Model.Id">
                     <i class='bx bx-sort-a-z'></i>
                 </a>
-                <a asp-page="/Customers/AccountDetails" asp-route-col="Id" asp-route-order="desc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-id="@Model.id">
+                <a asp-page="/Customers/AccountDetails" asp-route-col="Id" asp-route-order="desc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-id="@Model.Id">
                     <i class='bx bx-sort-z-a'></i>
                 </a>
             </th>
-            <th>Typ
-                <a asp-page="/Customers/AccountDetails" asp-route-col="Operation" asp-route-order="asc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-id="@Model.id">
+            <th>
+                Typ
+                <a asp-page="/Customers/AccountDetails" asp-route-col="Operation" asp-route-order="asc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-id="@Model.Id">
                     <i class='bx bx-sort-a-z'></i>
                 </a>
-                <a asp-page="/Customers/AccountDetails" asp-route-col="Operation" asp-route-order="desc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-id="@Model.id">
+                <a asp-page="/Customers/AccountDetails" asp-route-col="Operation" asp-route-order="desc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-id="@Model.Id">
                     <i class='bx bx-sort-z-a'></i>
                 </a>
             </th>
-            <th>Datum
-                <a asp-page="/Customers/AccountDetails" asp-route-col="Date" asp-route-order="asc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-id="@Model.id">
+            <th>
+                Datum
+                <a asp-page="/Customers/AccountDetails" asp-route-col="Date" asp-route-order="asc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-id="@Model.Id">
                     <i class='bx bx-sort-a-z'></i>
                 </a>
-                <a asp-page="/Customers/AccountDetails" asp-route-col="Date" asp-route-order="desc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-id="@Model.id">
+                <a asp-page="/Customers/AccountDetails" asp-route-col="Date" asp-route-order="desc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-id="@Model.Id">
                     <i class='bx bx-sort-z-a'></i>
                 </a>
             </th>
-            <th>Mängd
-                <a asp-page="/Customers/AccountDetails" asp-route-col="Amount" asp-route-order="asc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-id="@Model.id">
+            <th>
+                Mängd
+                <a asp-page="/Customers/AccountDetails" asp-route-col="Amount" asp-route-order="asc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-id="@Model.Id">
                     <i class='bx bx-sort-a-z'></i>
                 </a>
-                <a asp-page="/Customers/AccountDetails" asp-route-col="Amount" asp-route-order="desc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-id="@Model.id">
+                <a asp-page="/Customers/AccountDetails" asp-route-col="Amount" asp-route-order="desc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-id="@Model.Id">
                     <i class='bx bx-sort-z-a'></i>
                 </a>
             </th>
-            <th>Nytt saldo
-                <a asp-page="/Customers/AccountDetails" asp-route-col="NewBalance" asp-route-order="asc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-id="@Model.id">
+            <th>
+                Nytt saldo
+                <a asp-page="/Customers/AccountDetails" asp-route-col="NewBalance" asp-route-order="asc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-id="@Model.Id">
                     <i class='bx bx-sort-a-z'></i>
                 </a>
-                <a asp-page="/Customers/AccountDetails" asp-route-col="NewBalance" asp-route-order="desc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-id="@Model.id">
+                <a asp-page="/Customers/AccountDetails" asp-route-col="NewBalance" asp-route-order="desc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-id="@Model.Id">
                     <i class='bx bx-sort-z-a'></i>
                 </a>
             </th>
@@ -75,4 +80,27 @@
         }
     </tbody>
 </table>
+
+@if (Model.TotalPageCount != 1)
+{
+    <div class="paging">
+        <div class="paging-btn-container">
+            @if (Model.PageNum != 1)
+            {
+                <a class="paging-btn" asp-page="/Customers/AccountDetails" asp-route-id="@Model.Id" asp-route-pagenum="@(Model.PageNum - 1)" asp-route-SearchTerm="@Model.SearchTerm" asp-route-SortOrder="@Model.SortOrder" , asp-route-SortCol="@Model.SortCol">Föregående</a>
+            }
+        </div>
+        <div>
+            <h4>Sida @Model.PageNum av @Model.TotalPageCount</h4>
+        </div>
+        <div class="paging-btn-container">
+            @if (Model.PageNum != Model.TotalPageCount)
+            {
+                <a class="paging-btn" asp-page="/Customers/AccountDetails" asp-route-id="@Model.Id" asp-route-pagenum="@(Model.PageNum + 1)" asp-route-SearchTerm="@Model.SearchTerm" asp-route-SortOrder="@Model.SortOrder" , asp-route-SortCol="@Model.SortCol">Nästa</a>
+            }
+        </div>
+    </div>
+}
+
+
 

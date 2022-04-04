@@ -38,7 +38,7 @@ namespace BankStartWeb.Pages.Customers
         public string AmountInAccounts { get; set; }
         [BindProperty(SupportsGet = true)]
         [HiddenInput]
-        public string id { get; set; }
+        public string Id { get; set; }
 
         [BindProperty(SupportsGet = true)]
         public string SearchTerm { get; set; }
@@ -47,17 +47,17 @@ namespace BankStartWeb.Pages.Customers
         public string SortCol { get; set; }
         public int TotalPageCount { get; set; }
 
-        public void OnGet(int id, string col = "Id", string order = "asc")
+        public void OnGet(int id, int pagenum = 1, string col = "Id", string order = "asc")
         {
             Customer = _customerService.GetCustomerFromId(id);
 
             SortCol = col;
             SortOrder = order;
-            
+            PageNum = pagenum;
+
 
             var acc = Customer.Accounts.AsQueryable();
                 
-
 
             if (!string.IsNullOrEmpty(SearchTerm))
             {
