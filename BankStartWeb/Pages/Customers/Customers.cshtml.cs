@@ -1,3 +1,4 @@
+using Bank_AB.Infrastructure.Paging;
 using Bank_AB.Services.Search;
 using BankStartWeb.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +17,7 @@ namespace BankStartWeb.Pages.Customers
             _searchService = searchService;
         }
 
-        public List<Customer> Customers { get; set; }
+        public List<CustomerViewModel> Customers { get; set; }
 
         public class CustomerViewModel
         {
@@ -33,13 +34,30 @@ namespace BankStartWeb.Pages.Customers
         public string SearchTerm { get; set; }
 
         public int PageNum { get; set; }
-
-        public void OnGet(int pagenum=1)
+        public string SortOrder { get; set; }
+        public string SortCol { get; set; }
+        public int TotalPageCount { get; set; }
+        public void OnGet(int pagenum=1, string col = "Givenname", string order = "asc")
         {
+            SortCol = col;
+            SortOrder = order;
             PageNum = pagenum;
-            int toSkip = (PageNum - 1) * 20;
 
-            var cust = _context.Customers.Skip(toSkip).Take(20).Select(cust => new Customer
+            var cust = _context.Customers.AsQueryable();
+
+            if (!string.IsNullOrEmpty(SearchTerm))
+            {
+                cust = _searchService.Search(cust, SearchTerm);
+            }
+
+            cust.OrderBy(col, 
+                order == "asc" ? ExtensionMethods.QuerySortOrder.Asc : ExtensionMethods.QuerySortOrder.Desc);
+
+            var pageResult = cust.GetPaged(PageNum, 10);
+
+            TotalPageCount = pageResult.PageCount;
+
+            Customers = pageResult.Results.Select(cust => new CustomerViewModel
             {
                 Id = cust.Id,
                 Givenname = cust.Givenname,
@@ -48,14 +66,11 @@ namespace BankStartWeb.Pages.Customers
                 Telephone = cust.Telephone,
                 EmailAddress = cust.EmailAddress,
                 City = cust.City
-            });
+            }).ToList();
 
-            if (!string.IsNullOrEmpty(SearchTerm))
-            {
-                cust = _searchService.Search(cust, SearchTerm);
-            }
+            
 
-            Customers = cust.ToList();
+           
 
         }
     }
