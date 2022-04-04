@@ -37,7 +37,7 @@ namespace BankStartWeb.Pages.Customers
         public string SortOrder { get; set; }
         public string SortCol { get; set; }
         public int TotalPageCount { get; set; }
-        public void OnGet(int pagenum=1, string col = "Givenname", string order = "asc")
+        public void OnGet(int pagenum = 1, string col = "Id", string order = "asc")
         {
             SortCol = col;
             SortOrder = order;
@@ -50,10 +50,13 @@ namespace BankStartWeb.Pages.Customers
                 cust = _searchService.Search(cust, SearchTerm);
             }
 
-            cust.OrderBy(col, 
-                order == "asc" ? ExtensionMethods.QuerySortOrder.Asc : ExtensionMethods.QuerySortOrder.Desc);
-
             var pageResult = cust.GetPaged(PageNum, 10);
+
+            var paged = pageResult.Results.AsQueryable();
+
+            pageResult.Results = paged.OrderBy(col,
+                order == "asc" ? ExtensionMethods.QuerySortOrder.Asc :
+                ExtensionMethods.QuerySortOrder.Desc).ToList();
 
             TotalPageCount = pageResult.PageCount;
 
@@ -67,11 +70,6 @@ namespace BankStartWeb.Pages.Customers
                 EmailAddress = cust.EmailAddress,
                 City = cust.City
             }).ToList();
-
-            
-
-           
-
         }
     }
 }
