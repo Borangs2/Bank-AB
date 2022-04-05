@@ -13,7 +13,7 @@
 
 <form method="GET">
     <input asp-for="Id" value="@Model.Account.Id" />
-    <input asp-for="SearchTerm" placeholder=" Search Transactions..." autocomplete="off" />
+    <input asp-for="SearchTerm" placeholder=" Sök ..." autocomplete="off" />
 </form>
 
 <table class="table">
@@ -102,5 +102,9 @@
     </div>
 }
 
+<div class="transaction-btn-container">
+    <a class="transaction-btn" asp-page="/Transactions/Deposit" asp-route-accountId="@Model.Account.Id" asp-route-customerId="@Model.CustomerId">Skapa insättning</a>
+    <a class="transaction-btn" asp-page="/Transactions/Withdraw" asp-route-accountId="@Model.Account.Id" asp-route-customerId="@Model.CustomerId">Skapa uttag</a>
+    <a class="transaction-btn" asp-page="/Transactions/Transfer" asp-route-accountId="@Model.Account.Id" asp-route-customerId="@Model.CustomerId">Överför mellan konton</a>
 
-
+</div>

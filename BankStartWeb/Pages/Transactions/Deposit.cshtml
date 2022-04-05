@@ -1,0 +1,31 @@
+﻿@page
+@model Bank_AB.Pages.Transactions.DepositModel
+@{
+}
+
+<a class="back-btn" asp-page="/Customers/AccountDetails" asp-route-id="@Model.AccountId">Tillbaka till konto</a>
+
+<div class="card">
+    <div class="card-header">
+        <h1>Insättning</h1>
+    </div>
+    <div class="card-body">
+            <form method="POST">
+                <div class="form-group">
+                    <label asp-for="Type">Ange korttyp</label>
+                    <select class="form-control" asp-for="Type" asp-items="@Model.AllTypes"/>
+                    <span asp-validation-for="Type" class="field-validation-error"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Operation">Ange insättningstyp</label>
+                    <select class="form-control" asp-for="Operation" asp-items="@Model.AllOperations"/>
+                    <span asp-validation-for="Operation" class="field-validation-error"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Amount">Ange Belopp</label>
+                    <input class="form-control" asp-for="Amount"/>
+                    <span asp-validation-for="Amount" class="field-validation-error"></span>
+                </div>
+            </form>
+    </div>
+</div>

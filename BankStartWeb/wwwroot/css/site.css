@@ -80,6 +80,20 @@ a {
     width: 100%;
 }
 
+.transaction-btn-container{
+    margin-top: 50px;
+}
+
+.transaction-btn {
+    background-color: var(--colour-primary);
+    padding: 5px 10px;
+    border-radius: 10px;
+    color: white;
+    font-size: 14pt;
+    font-weight: bold;
+    text-align: center;
+}
+
 
 footer {
     width: 100%;
