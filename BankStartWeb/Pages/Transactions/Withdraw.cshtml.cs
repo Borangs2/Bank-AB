@@ -11,8 +11,9 @@ namespace Bank_AB.Pages.Transactions
         {
             _context = context;
         }
+
         public int AccountId { get; set; }
-        public void OnGet(int customerId, int accountId)
+        public void OnGet(int accountId)
         {
             AccountId = accountId;
         }

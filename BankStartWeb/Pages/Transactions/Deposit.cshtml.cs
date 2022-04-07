@@ -15,7 +15,7 @@ namespace Bank_AB.Pages.Transactions
         }
 
         public int AccountId { get; set; }
-        public void OnGet(int customerId, int accountId)
+        public void OnGet(int accountId)
         {
             AccountId = accountId;
             SetAllSelectLists();
@@ -32,7 +32,6 @@ namespace Bank_AB.Pages.Transactions
 
         public void OnPost(int accountId)
         {
-
 
 
 
