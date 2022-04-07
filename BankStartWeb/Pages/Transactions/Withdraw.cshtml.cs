@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Bank_AB.Pages.Transactions
 {
+    [BindProperties]
     public class WithdrawModel : PageModel
     {
         private readonly ApplicationDbContext _context;
@@ -25,12 +26,24 @@ namespace Bank_AB.Pages.Transactions
         public List<SelectListItem> AllOperations { get; set; }
 
 
+        public void OnGet(int accountId)
+        {
+            AccountId = accountId;
+            SetAllSelectLists();
+        }
+
+
         public IActionResult OnPost(int accountId)
         {
+            Account account = _context.Accounts.Include(trans => trans.Transactions).First(acc => acc.Id == AccountId);
+
+            if (TransactionVerification.CheckForOvercharge(Amount, account.Balance))
+            {
+                ModelState.AddModelError(nameof(Amount), "Vald summa är större än vad som finns på kontot");
+            }
 
             if (ModelState.IsValid)
             {
-                Account account = _context.Accounts.Include(trans => trans.Transactions).First(acc => acc.Id == AccountId);
                 var transaction = new Transaction
                 {
                     Type = Type,
@@ -50,8 +63,6 @@ namespace Bank_AB.Pages.Transactions
             SetAllSelectLists();
             return Page();
         }
-
-
 
         public void SetAllSelectLists()
         {

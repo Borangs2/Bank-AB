@@ -47,7 +47,7 @@ namespace BankStartWeb.Pages.Customers
         public string SortOrder { get; set; }
         public string SortCol { get; set; }
         public int TotalPageCount { get; set; }
-        public void OnGet(int id, int pagenum = 1, string col = "Id", string order = "asc")
+        public void OnGet(int id, int pagenum = 1, string col = "Date", string order = "desc")
         {
             Account = _accountService.GetAccountFromId(id);
 

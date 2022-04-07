@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Principal;
 
 namespace Bank_AB.Pages.Transactions
 {
@@ -31,10 +32,15 @@ namespace Bank_AB.Pages.Transactions
 
         public IActionResult OnPost(int accountId)
         {
+            Account account = _context.Accounts.Include(trans => trans.Transactions).First(acc => acc.Id == AccountId);
+
+            if (TransactionVerification.CheckForOvercharge(Amount, account.Balance))
+            {
+                ModelState.AddModelError(nameof(Amount), "Vald summa är större än vad som finns på kontot");
+            }
 
             if (ModelState.IsValid)
             {
-                Account account = _context.Accounts.Include(trans => trans.Transactions).First(acc => acc.Id == AccountId);
                 Account transAccount = _context.Accounts.Include(trans => trans.Transactions).First(acc => acc.Id == TransAccountId);
 
                 var withdrawTransaction = new Transaction
@@ -54,7 +60,7 @@ namespace Bank_AB.Pages.Transactions
                     Amount = Amount,
                     NewBalance = transAccount.Balance + Amount,
                 };
-                
+
                 account.Balance -= Amount;
                 transAccount.Balance += Amount;
 
@@ -70,7 +76,6 @@ namespace Bank_AB.Pages.Transactions
             SetAllAccounts();
             return Page();
         }
-
 
         public void SetAllAccounts()
         {
