@@ -94,6 +94,10 @@ a {
     text-align: center;
 }
 
+.field-validation-error{
+    color: red;
+    font-weight: bold;
+}
 
 footer {
     position: absolute;

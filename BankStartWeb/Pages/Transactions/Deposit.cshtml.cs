@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace Bank_AB.Pages.Transactions
 {
@@ -22,7 +23,7 @@ namespace Bank_AB.Pages.Transactions
             SetAllSelectLists();
         }
 
-
+        [Range(1, Int32.MaxValue, ErrorMessage = "Ange ett nummer större än 0")]
         public decimal Amount { get; set; }
         public string Type { get; set; }
         public string Operation { get; set; }
