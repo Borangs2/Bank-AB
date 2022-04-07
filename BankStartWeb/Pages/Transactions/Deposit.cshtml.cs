@@ -2,6 +2,7 @@ using BankStartWeb.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bank_AB.Pages.Transactions
 {
@@ -30,12 +31,31 @@ namespace Bank_AB.Pages.Transactions
         public List<SelectListItem> AllOperations { get; set; }
 
 
-        public void OnPost(int accountId)
+        public IActionResult OnPost(int accountId)
         {
 
+            if (ModelState.IsValid)
+            {
+                Account account = _context.Accounts.Include(trans => trans.Transactions).First(acc => acc.Id == AccountId);
+                var transaction = new Transaction
+                {
+                    Type = Type,
+                    Operation = Operation,
+                    Date = DateTime.Now,
+                    Amount = Amount,
+                    NewBalance = account.Balance + Amount
+                };
+                account.Balance += Amount;
 
 
+                account.Transactions.Add(transaction);
+                _context.SaveChanges();
+                return RedirectToPage("/Customers/AccountDetails", new {id = accountId});
+            }
 
+
+            SetAllSelectLists();
+            return Page();
         }
 
 
