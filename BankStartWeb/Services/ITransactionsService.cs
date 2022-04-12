@@ -10,8 +10,8 @@
             NotFound,
         }
 
-        ReturnCode Withdraw(int accountId, decimal amount);
-        ReturnCode Deposit(int accountId, decimal amount);
+        ReturnCode Withdraw(int accountId, decimal amount, string operation, string type);
+        ReturnCode Deposit(int accountId, decimal amount, string operation, string type);
         ReturnCode Transfer(int fromAccountId, int toAccountId, decimal amount);
 
 
