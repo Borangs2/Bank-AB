@@ -16,9 +16,5 @@ namespace Bank_AB.Services
             return _context.Accounts.Include(trans => trans.Transactions).First(acc => acc.Id == id);
         }
 
-        public int GetTotalBalanceFromAccounts()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

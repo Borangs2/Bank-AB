@@ -34,7 +34,6 @@ namespace Bank_AB.Pages.Transactions
 
         public IActionResult OnPost(int accountId)
         {
-
             if (ModelState.IsValid)
             {
                 Account account = _context.Accounts.Include(trans => trans.Transactions).First(acc => acc.Id == AccountId);
