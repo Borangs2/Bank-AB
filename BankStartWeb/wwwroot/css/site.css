@@ -52,6 +52,19 @@ a {
     color: white;
 }
 
+.customer-search{
+    display: flex;
+    justify-content: space-between;
+}
+
+.searchForm{
+    width: 30%;
+}
+
+.searchInput{
+    display: block;
+    width: 100%;
+}
 
 .table {
     width: 100%;

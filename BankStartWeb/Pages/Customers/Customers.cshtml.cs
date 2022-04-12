@@ -3,6 +3,7 @@ using Bank_AB.Services.Search;
 using BankStartWeb.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.ComponentModel.DataAnnotations;
 
 namespace BankStartWeb.Pages.Customers
 {
@@ -32,11 +33,14 @@ namespace BankStartWeb.Pages.Customers
 
         [BindProperty(SupportsGet = true)]
         public string SearchTerm { get; set; }
-
+        [BindProperty(SupportsGet = true)]
+        public string? SearchTermId { get; set; }
         public int PageNum { get; set; }
         public string SortOrder { get; set; }
         public string SortCol { get; set; }
         public int TotalPageCount { get; set; }
+
+
         public void OnGet(int pagenum = 1, string col = "Id", string order = "asc")
         {
             SortCol = col;
@@ -71,5 +75,27 @@ namespace BankStartWeb.Pages.Customers
                 City = cust.City
             }).ToList();
         }
+
+        public IActionResult OnPostSearchById()
+        {
+            if (string.IsNullOrEmpty(SearchTermId))
+            {
+                ModelState.AddModelError(nameof(SearchTermId), "Fältet kan inte vara tomt");
+            }
+            else
+            {
+                Customer? cust = _context.Customers.FirstOrDefault(c => c.Id == int.Parse(SearchTermId));
+
+                if (cust != null)
+                    return RedirectToPage("/Customers/CustomerDetails", new { id = cust.Id });
+            }
+
+
+            ModelState.AddModelError(nameof(SearchTermId), "Kund hittas ej");
+
+            OnGet();
+            return Page();
+        }
+
     }
 }
