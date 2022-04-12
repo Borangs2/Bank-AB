@@ -1,3 +1,4 @@
+using Bank_AB.Infrastructure.Attributes;
 using Bank_AB.Services;
 using BankStartWeb.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -22,6 +23,7 @@ namespace Bank_AB.Pages.Transactions
 
         public int AccountId { get; set; }
         [Range(1, Int32.MaxValue, ErrorMessage = "Ange ett nummer större än 0")]
+        [IsNumeric(ErrorMessage = "Ange ett värde större än 0")]
         public decimal Amount { get; set; }
         public string Type { get; set; }
         public string Operation { get; set; }

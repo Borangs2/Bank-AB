@@ -20,10 +20,6 @@ body {
     overflow-x: hidden;
 }
 
-p, span {
-    color: #999;
-}
-
 hr {
     border-top-color: #CCC;
     margin-top: 10px;

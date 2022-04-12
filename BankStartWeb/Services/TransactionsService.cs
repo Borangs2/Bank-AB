@@ -40,7 +40,7 @@ namespace Bank_AB.Services
 
 
             account.Transactions.Add(transaction);
-            //_context.SaveChanges();
+            _context.SaveChanges();
 
             return ITransactionsService.ReturnCode.Ok;
         }
@@ -70,7 +70,7 @@ namespace Bank_AB.Services
             account.Balance -= amount;
 
             account.Transactions.Add(transaction);
-            //_context.SaveChanges();
+            _context.SaveChanges();
 
             return ITransactionsService.ReturnCode.Ok;
 
@@ -116,7 +116,7 @@ namespace Bank_AB.Services
             fromAccount.Transactions.Add(fromTransaction);
             toAccount.Transactions.Add(toTransaction);
 
-            //_context.SaveChanges();
+            _context.SaveChanges();
             return ITransactionsService.ReturnCode.Ok;
         }
     }
