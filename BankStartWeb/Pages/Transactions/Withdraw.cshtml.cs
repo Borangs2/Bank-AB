@@ -38,9 +38,8 @@ namespace Bank_AB.Pages.Transactions
             Account account = _context.Accounts.Include(trans => trans.Transactions).First(acc => acc.Id == AccountId);
 
             if (TransactionVerification.CheckForOvercharge(Amount, account.Balance))
-            {
                 ModelState.AddModelError(nameof(Amount), "Vald summa är större än vad som finns på kontot");
-            }
+
 
             if (ModelState.IsValid)
             {
