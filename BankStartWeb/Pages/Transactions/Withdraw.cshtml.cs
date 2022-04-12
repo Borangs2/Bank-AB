@@ -1,3 +1,4 @@
+using Bank_AB.Services;
 using BankStartWeb.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -11,9 +12,12 @@ namespace Bank_AB.Pages.Transactions
     public class WithdrawModel : PageModel
     {
         private readonly ApplicationDbContext _context;
-        public WithdrawModel(ApplicationDbContext context)
+        private readonly ITransactionsService _transactionsService;
+
+        public WithdrawModel(ApplicationDbContext context, ITransactionsService transactionsService)
         {
             _context = context;
+            _transactionsService = transactionsService;
         }
 
         public int AccountId { get; set; }
@@ -35,27 +39,37 @@ namespace Bank_AB.Pages.Transactions
 
         public IActionResult OnPost(int accountId)
         {
-            Account account = _context.Accounts.Include(trans => trans.Transactions).First(acc => acc.Id == AccountId);
+            //Account account = _context.Accounts.Include(trans => trans.Transactions).First(acc => acc.Id == AccountId);
 
-            if (TransactionVerification.CheckForOvercharge(Amount, account.Balance))
-                ModelState.AddModelError(nameof(Amount), "Vald summa är större än vad som finns på kontot");
+            //if (TransactionVerification.CheckForOvercharge(Amount, account.Balance))
+            //    ModelState.AddModelError(nameof(Amount), "Vald summa är större än vad som finns på kontot");
 
 
             if (ModelState.IsValid)
             {
-                var transaction = new Transaction
-                {
-                    Type = Type,
-                    Operation = Operation,
-                    Date = DateTime.Now,
-                    Amount = Amount,
-                    NewBalance = account.Balance - Amount
-                };
-                account.Balance -= Amount;
+                //var transaction = new Transaction
+                //{
+                //    Type = Type,
+                //    Operation = Operation,
+                //    Date = DateTime.Now,
+                //    Amount = Amount,
+                //    NewBalance = account.Balance - Amount
+                //};
+                //account.Balance -= Amount;
 
-                account.Transactions.Add(transaction);
-                _context.SaveChanges();
-                return RedirectToPage("/Customers/AccountDetails", new { id = accountId });
+                //account.Transactions.Add(transaction);
+                //_context.SaveChanges();
+
+                var status = _transactionsService.Withdraw(AccountId, Amount, Operation, Type);
+
+                if (status == ITransactionsService.ReturnCode.ValueNegative)
+                    ModelState.AddModelError(nameof(Amount), "Värdet kan inte vara negativt");
+                if (status == ITransactionsService.ReturnCode.BalanceToLow)
+                    ModelState.AddModelError(nameof(Amount), "Inte tillräckligt saldo på kontot");
+
+
+                if (status == ITransactionsService.ReturnCode.Ok)
+                    return RedirectToPage("/Customers/AccountDetails", new { id = accountId });
             }
 
 

@@ -1,3 +1,4 @@
+using Bank_AB.Services;
 using BankStartWeb.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -10,10 +11,12 @@ namespace Bank_AB.Pages.Transactions
     [BindProperties]
     public class DepositModel : PageModel
     {
+        private readonly ITransactionsService _transactionService;
         private readonly ApplicationDbContext _context;
-        public DepositModel(ApplicationDbContext context)
+        public DepositModel(ApplicationDbContext context, ITransactionsService transactionsService)
         {
             _context = context;
+            _transactionService = transactionsService;
         }
 
         public int AccountId { get; set; }
@@ -23,7 +26,7 @@ namespace Bank_AB.Pages.Transactions
             SetAllSelectLists();
         }
 
-        [Range(1, Int32.MaxValue, ErrorMessage = "Ange ett nummer större än 0")]
+        [Range(1, Int32.MaxValue, ErrorMessage = "Ange ett värde större än 0")]
         public decimal Amount { get; set; }
         public string Type { get; set; }
         public string Operation { get; set; }
@@ -36,21 +39,29 @@ namespace Bank_AB.Pages.Transactions
         {
             if (ModelState.IsValid)
             {
-                Account account = _context.Accounts.Include(trans => trans.Transactions).First(acc => acc.Id == AccountId);
-                var transaction = new Transaction
-                {
-                    Type = Type,
-                    Operation = Operation,
-                    Date = DateTime.Now,
-                    Amount = Amount,
-                    NewBalance = account.Balance + Amount
-                };
-                account.Balance += Amount;
+                //Account account = _context.Accounts.Include(trans => trans.Transactions).First(acc => acc.Id == AccountId);
+                //var transaction = new Transaction
+                //{
+                //    Type = Type,
+                //    Operation = Operation,
+                //    Date = DateTime.Now,
+                //    Amount = Amount,
+                //    NewBalance = account.Balance + Amount
+                //};
+                //account.Balance += Amount;
 
 
-                account.Transactions.Add(transaction);
-                _context.SaveChanges();
-                return RedirectToPage("/Customers/AccountDetails", new {id = accountId});
+                //account.Transactions.Add(transaction);
+                //_context.SaveChanges();
+
+                var status = _transactionService.Deposit(AccountId, Amount, Operation, Type);
+
+                if (status == ITransactionsService.ReturnCode.ValueNegative)
+                    ModelState.AddModelError(nameof(Amount), "Värdet kan inte vara negativt");
+                
+
+                if(status == ITransactionsService.ReturnCode.Ok)
+                    return RedirectToPage("/Customers/AccountDetails", new { id = accountId });
             }
 
 

@@ -1,3 +1,4 @@
+using Bank_AB.Services;
 using BankStartWeb.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -12,9 +13,12 @@ namespace Bank_AB.Pages.Transactions
     public class TransferModel : PageModel
     {
         private readonly ApplicationDbContext _context;
-        public TransferModel(ApplicationDbContext context)
+        private readonly ITransactionsService _transactionsService;
+
+        public TransferModel(ApplicationDbContext context, ITransactionsService transactionsService)
         {
             _context = context;
+            _transactionsService = transactionsService;
         }
         public int AccountId { get; set; }
         public void OnGet(int accountId)
@@ -32,44 +36,53 @@ namespace Bank_AB.Pages.Transactions
 
         public IActionResult OnPost(int accountId)
         {
-            Account account = _context.Accounts.Include(trans => trans.Transactions).First(acc => acc.Id == AccountId);
+            //Account account = _context.Accounts.Include(trans => trans.Transactions).First(acc => acc.Id == AccountId);
 
-            if (TransactionVerification.CheckForOvercharge(Amount, account.Balance))
-            {
-                ModelState.AddModelError(nameof(Amount), "Vald summa är större än vad som finns på kontot");
-            }
+            //if (TransactionVerification.CheckForOvercharge(Amount, account.Balance))
+            //{
+            //    ModelState.AddModelError(nameof(Amount), "Vald summa är större än vad som finns på kontot");
+            //}
 
             if (ModelState.IsValid)
             {
-                Account transAccount = _context.Accounts.Include(trans => trans.Transactions).First(acc => acc.Id == TransAccountId);
+                //Account transAccount = _context.Accounts.Include(trans => trans.Transactions).First(acc => acc.Id == TransAccountId);
 
-                var withdrawTransaction = new Transaction
-                {
-                    Type = "Transfer",
-                    Operation = "Transfer",
-                    Date = DateTime.Now,
-                    Amount = Amount,
-                    NewBalance = account.Balance - Amount
-                };
+                //var withdrawTransaction = new Transaction
+                //{
+                //    Type = "Transfer",
+                //    Operation = "Transfer",
+                //    Date = DateTime.Now,
+                //    Amount = Amount,
+                //    NewBalance = account.Balance - Amount
+                //};
 
-                var depositTransaction = new Transaction
-                {
-                    Type = "Transfer",
-                    Operation = "Transfer",
-                    Date = DateTime.Now,
-                    Amount = Amount,
-                    NewBalance = transAccount.Balance + Amount,
-                };
+                //var depositTransaction = new Transaction
+                //{
+                //    Type = "Transfer",
+                //    Operation = "Transfer",
+                //    Date = DateTime.Now,
+                //    Amount = Amount,
+                //    NewBalance = transAccount.Balance + Amount,
+                //};
 
-                account.Balance -= Amount;
-                transAccount.Balance += Amount;
+                //account.Balance -= Amount;
+                //transAccount.Balance += Amount;
 
 
-                account.Transactions.Add(withdrawTransaction);
-                transAccount.Transactions.Add(depositTransaction);
+                //account.Transactions.Add(withdrawTransaction);
+                //transAccount.Transactions.Add(depositTransaction);
 
-                _context.SaveChanges();
-                return RedirectToPage("/Customers/AccountDetails", new { id = accountId });
+                //_context.SaveChanges();
+
+                var status = _transactionsService.Transfer(AccountId, TransAccountId, Amount);
+
+                if (status == ITransactionsService.ReturnCode.ValueNegative)
+                    ModelState.AddModelError(nameof(Amount), "Värdet kan inte vara negativt");
+                if (status == ITransactionsService.ReturnCode.BalanceToLow)
+                    ModelState.AddModelError(nameof(Amount), "Inte tillräckligt saldo på kontot");
+
+                if(status == ITransactionsService.ReturnCode.Ok)
+                    return RedirectToPage("/Customers/AccountDetails", new { id = accountId });
             }
 
 

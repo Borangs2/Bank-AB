@@ -8,8 +8,8 @@ namespace Bank_AB.Services
     public class TransactionsService : ITransactionsService
     {
         private ApplicationDbContext _context;
-        private AccountService _accountService;
-        public TransactionsService(ApplicationDbContext context, AccountService accountService)
+        private IAccountService _accountService;
+        public TransactionsService(ApplicationDbContext context, IAccountService accountService)
         {
             _context = context;
             _accountService = accountService;
