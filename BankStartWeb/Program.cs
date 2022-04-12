@@ -21,7 +21,7 @@ builder.Services.AddTransient<IAccountService, AccountService>();
 builder.Services.AddTransient<ISearchService<Customer>, CustomerSearchService>();
 builder.Services.AddTransient<ISearchService<Account>, AccountSearchService>();
 builder.Services.AddTransient<ISearchService<Transaction>, TransactionSearchService>();
-
+builder.Services.AddTransient<ITransactionsService, TransactionsService>();
 
 
 
