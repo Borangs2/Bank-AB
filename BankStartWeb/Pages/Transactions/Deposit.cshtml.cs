@@ -41,21 +41,6 @@ namespace Bank_AB.Pages.Transactions
         {
             if (ModelState.IsValid)
             {
-                //Account account = _context.Accounts.Include(trans => trans.Transactions).First(acc => acc.Id == AccountId);
-                //var transaction = new Transaction
-                //{
-                //    Type = Type,
-                //    Operation = Operation,
-                //    Date = DateTime.Now,
-                //    Amount = Amount,
-                //    NewBalance = account.Balance + Amount
-                //};
-                //account.Balance += Amount;
-
-
-                //account.Transactions.Add(transaction);
-                //_context.SaveChanges();
-
                 var status = _transactionService.Deposit(AccountId, Amount, Operation, Type);
 
                 if (status == ITransactionsService.ReturnCode.ValueNegative)

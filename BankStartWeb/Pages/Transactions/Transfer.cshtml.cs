@@ -38,44 +38,8 @@ namespace Bank_AB.Pages.Transactions
 
         public IActionResult OnPost(int accountId)
         {
-            //Account account = _context.Accounts.Include(trans => trans.Transactions).First(acc => acc.Id == AccountId);
-
-            //if (TransactionVerification.CheckForOvercharge(Amount, account.Balance))
-            //{
-            //    ModelState.AddModelError(nameof(Amount), "Vald summa är större än vad som finns på kontot");
-            //}
-
             if (ModelState.IsValid)
             {
-                //Account transAccount = _context.Accounts.Include(trans => trans.Transactions).First(acc => acc.Id == TransAccountId);
-
-                //var withdrawTransaction = new Transaction
-                //{
-                //    Type = "Transfer",
-                //    Operation = "Transfer",
-                //    Date = DateTime.Now,
-                //    Amount = Amount,
-                //    NewBalance = account.Balance - Amount
-                //};
-
-                //var depositTransaction = new Transaction
-                //{
-                //    Type = "Transfer",
-                //    Operation = "Transfer",
-                //    Date = DateTime.Now,
-                //    Amount = Amount,
-                //    NewBalance = transAccount.Balance + Amount,
-                //};
-
-                //account.Balance -= Amount;
-                //transAccount.Balance += Amount;
-
-
-                //account.Transactions.Add(withdrawTransaction);
-                //transAccount.Transactions.Add(depositTransaction);
-
-                //_context.SaveChanges();
-
                 var status = _transactionsService.Transfer(AccountId, TransAccountId, Amount);
 
                 if (status == ITransactionsService.ReturnCode.ValueNegative)
