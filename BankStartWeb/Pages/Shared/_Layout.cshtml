@@ -31,44 +31,26 @@
                     </li>
                     <li class="tm-nav-item" id="custBtn">
                         <a asp-page="/Customers/Customers" class="tm-nav-link">
-                            <i class='bx bxs-user'></i>
+                            <i class='bx bxs-group'></i>
                             Kunder
                         </a>
                     </li>
                 </ul>
-            </nav>
 
+            </nav>
+            <ul class="login-btn">
+                <li class="tm-nav-item" id="custBtn">
+                    <a asp-area="Identity" asp-page="/Account/Login" class="tm-nav-link">
+                        <i class='bx bxs-user'></i>
+                        Login
+                    </a>
+                </li>
+            </ul>
         </div>
     </header>
     <div class="container-fluid">
         <main class="tm-main">
             @RenderBody()
-
-            @*<div class="row tm-row tm-mt-100 tm-mb-75">
-                <div class="tm-prev-next-wrapper">
-                <a href="#" class="mb-2 tm-btn tm-btn-primary tm-prev-next disabled tm-mr-20">Prev</a>
-                <a href="#" class="mb-2 tm-btn tm-btn-primary tm-prev-next">Next</a>
-                </div>
-                <div class="tm-paging-wrapper">
-                <span class="d-inline-block mr-3">Page</span>
-                <nav class="tm-paging-nav d-inline-block">
-                <ul>
-                <li class="tm-paging-item active">
-                <a href="#" class="mb-2 tm-btn tm-paging-link">1</a>
-                </li>
-                <li class="tm-paging-item">
-                <a href="#" class="mb-2 tm-btn tm-paging-link">2</a>
-                </li>
-                <li class="tm-paging-item">
-                <a href="#" class="mb-2 tm-btn tm-paging-link">3</a>
-                </li>
-                <li class="tm-paging-item">
-                <a href="#" class="mb-2 tm-btn tm-paging-link">4</a>
-                </li>
-                </ul>
-                </nav>
-                </div>
-                </div>*@
             <footer class="row tm-row">
                 <hr class="col-12">
                 &copy; Andreas Boräng
@@ -76,6 +58,8 @@
         </main>
     </div>
     <script src="~/js/site.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
     <partial name="_validationScriptsPartial" />
 </body>
 </html>

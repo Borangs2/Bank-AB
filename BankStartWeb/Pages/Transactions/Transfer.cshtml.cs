@@ -25,15 +25,13 @@ namespace Bank_AB.Pages.Transactions
         public void OnGet(int accountId)
         {
             AccountId = accountId;
-            SetAllAccounts();
         }
 
         [Range(1, Int32.MaxValue, ErrorMessage = "Ange ett nummer större än 0")]
         [IsNumeric(ErrorMessage = "Ange ett nummer större än 0")]
         public decimal Amount { get; set; }
+        [Range(1, Int32.MaxValue, ErrorMessage = "Ange ett kontonummer större än 0")]
         public int TransAccountId { get; set; }
-
-        public List<SelectListItem> AllAccounts { get; set; }
 
 
         public IActionResult OnPost(int accountId)
@@ -46,29 +44,15 @@ namespace Bank_AB.Pages.Transactions
                     ModelState.AddModelError(nameof(Amount), "Värdet kan inte vara negativt");
                 if (status == ITransactionsService.ReturnCode.BalanceToLow)
                     ModelState.AddModelError(nameof(Amount), "Inte tillräckligt saldo på kontot");
+                if (status == ITransactionsService.ReturnCode.NotFound)
+                    ModelState.AddModelError(nameof(TransAccountId), "Kontot hittades ej");
 
-                if(status == ITransactionsService.ReturnCode.Ok)
+                if (status == ITransactionsService.ReturnCode.Ok)
                     return RedirectToPage("/Customers/AccountDetails", new { id = accountId });
             }
 
 
-            SetAllAccounts();
             return Page();
-        }
-
-        public void SetAllAccounts()
-        {
-            var cust = _context.Customers.Include(cust => cust.Accounts).First(cust => cust.Accounts.Any(acc => acc.Id == AccountId));
-
-            AllAccounts = new List<SelectListItem>();
-            foreach (var account in cust.Accounts)
-            {
-                AllAccounts.Add(new SelectListItem
-                {
-                    Text = $"Konto { account.Id }",
-                    Value = account.Id.ToString()
-                });
-            }
         }
     }
 }

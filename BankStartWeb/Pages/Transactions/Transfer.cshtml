@@ -14,7 +14,7 @@
             <form method="post">
                 <div class="form-group">
                     <label asp-for="TransAccountId">Ange konto att överföra till:</label>
-                    <select class="form-control" asp-for="TransAccountId" asp-items="@Model.AllAccounts"></select>
+                    <input class="form-control" asp-for="TransAccountId"></input>
                     <span asp-validation-for="TransAccountId" class="field-validation-error"></span>
                 </div>
                 

@@ -48,21 +48,30 @@ a {
     font-size: 14pt;
 }
 
-.bxs-home, .bxs-user{
+.bxs-home, .bxs-user, .bxs-group {
     color: white;
 }
 
-.customer-search{
+.login-btn {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    margin-left: -30px;
+}
+
+
+
+.customer-search {
     display: flex;
     justify-content: space-between;
     margin-bottom: 30px;
 }
 
-.searchForm{
+.searchForm {
     width: 30%;
 }
 
-.searchInput{
+.searchInput {
     display: block;
     width: 100%;
 }
@@ -94,7 +103,7 @@ a {
     width: 100%;
 }
 
-.transaction-btn-container{
+.transaction-btn-container {
     margin-top: 50px;
 }
 
@@ -108,7 +117,7 @@ a {
     text-align: center;
 }
 
-.field-validation-error{
+.field-validation-error {
     color: red;
     font-weight: bold;
 }

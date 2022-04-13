@@ -93,7 +93,8 @@ hr {
 }
 
 .tm-nav {
-    margin-bottom: 100px;
+    position: relative;
+    height: auto;
 }
 
 .tm-nav-item {
