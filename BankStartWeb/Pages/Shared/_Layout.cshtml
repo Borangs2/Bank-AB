@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@inject SignInManager<IdentityUser> SignInManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -29,22 +31,20 @@
                             Hem
                         </a>
                     </li>
-                    <li class="tm-nav-item" id="custBtn">
-                        <a asp-page="/Customers/Customers" class="tm-nav-link">
-                            <i class='bx bxs-group'></i>
-                            Kunder
-                        </a>
-                    </li>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <li class="tm-nav-item" id="custBtn">
+                            <a asp-page="/Customers/Customers" class="tm-nav-link">
+                                <i class='bx bxs-group'></i>
+                                Kunder
+                            </a>
+                        </li>
+                    }
                 </ul>
 
             </nav>
             <ul class="login-btn">
-                <li class="tm-nav-item" id="custBtn">
-                    <a asp-area="Identity" asp-page="/Account/Login" class="tm-nav-link">
-                        <i class='bx bxs-user'></i>
-                        Login
-                    </a>
-                </li>
+                <partial name="_LoginPartial" />
             </ul>
         </div>
     </header>

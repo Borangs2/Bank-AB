@@ -23,6 +23,8 @@ namespace BankStartWeb.Data
         {
             _dbContext.Database.Migrate();
             SeedCustomers();
+            SeedRoles();
+            SeedAdmins();
         }
 
         private void SeedCustomers()
@@ -115,8 +117,6 @@ namespace BankStartWeb.Data
 
             return person;
         }
-
-
         private Account GenerateAccount()
         {
             string[] accountType = { "Personal", "Checking", "Savings" };
@@ -175,6 +175,40 @@ namespace BankStartWeb.Data
                 tran.NewBalance = account.Balance;
             }
             return account;
+        }
+
+        private void SeedRoles()
+        {
+            CreateRoleIfNotExists("Admin");
+            CreateRoleIfNotExists("Cashier");
+        }
+        private void CreateRoleIfNotExists(string roleName)
+        {
+            if (_dbContext.Roles.Any(r => r.Name == roleName))
+                return;
+            _dbContext.Roles.Add(new IdentityRole { Name = roleName, NormalizedName = roleName });
+            _dbContext.SaveChanges();
+        }
+
+        private void SeedAdmins()
+        {
+            CreateAdminIfNotExists("Stefan Holmberg", "stefan.holmberg@systementor.se", "Hejsan123#", new[] { "Admin" });
+            CreateAdminIfNotExists("", "stefan.holmberg@customer.banken.se", "Hejsan123#", new[] { "Cashier" });
+            CreateAdminIfNotExists("", "andreas@borang.org", "Hejhej1!", new[] { "Admin", "Cashier" });
+        }
+        private void CreateAdminIfNotExists(string userName, string email, string password, string[] roles)
+        {
+            if (_userManager.FindByEmailAsync(email).Result != null)
+                return;
+
+            var user = new IdentityUser
+            {
+                UserName = userName,
+                Email = email,
+                EmailConfirmed = true
+            };
+            _userManager.CreateAsync(user, password).Wait();
+            _userManager.AddToRolesAsync(user, roles).Wait();
         }
     }
 }

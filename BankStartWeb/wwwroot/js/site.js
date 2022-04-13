@@ -13,6 +13,7 @@ var filename = url.split('/').pop();
 
 var homeBtn = document.getElementById("homeBtn");
 var custBtn = document.getElementById("custBtn");
+var loginBtn = document.getElementById("loginBtn");
 
 switch (filename) {
     //Index
@@ -21,4 +22,6 @@ switch (filename) {
         break;
     case "Customers":
         custBtn.classList.add("active");
+    case "Login":
+        loginBtn.classList.add("active");
 }

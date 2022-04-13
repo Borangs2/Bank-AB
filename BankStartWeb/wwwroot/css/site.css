@@ -48,7 +48,7 @@ a {
     font-size: 14pt;
 }
 
-.bxs-home, .bxs-user, .bxs-group {
+.bxs-home, .bxs-user, .bxs-group, .bxs-user-x {
     color: white;
 }
 
@@ -60,7 +60,9 @@ a {
     height: auto;
 }
 
-
+.logout-btn{
+    border: none;
+}
 
 .customer-search {
     display: flex;
