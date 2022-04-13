@@ -193,8 +193,8 @@ namespace BankStartWeb.Data
         private void SeedAdmins()
         {
             CreateAdminIfNotExists("Stefan Holmberg", "stefan.holmberg@systementor.se", "Hejsan123#", new[] { "Admin" });
-            CreateAdminIfNotExists("", "stefan.holmberg@customer.banken.se", "Hejsan123#", new[] { "Cashier" });
-            CreateAdminIfNotExists("", "andreas@borang.org", "Hejhej1!", new[] { "Admin", "Cashier" });
+            CreateAdminIfNotExists("Hefan Solmberg", "stefan.holmberg@customer.banken.se", "Hejsan123#", new[] { "Cashier" });
+            CreateAdminIfNotExists("Andrea Boräng", "andreas@borang.org", "Hejhej1!", new[] { "Admin", "Cashier" });
         }
         private void CreateAdminIfNotExists(string userName, string email, string password, string[] roles)
         {
