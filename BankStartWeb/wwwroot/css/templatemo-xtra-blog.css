@@ -51,6 +51,7 @@ hr {
 }
 
 .tm-header-wrapper {
+    position: relative;
     overflow-y: scroll;
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -93,7 +94,6 @@ hr {
 }
 
 .tm-nav {
-    position: relative;
     height: auto;
 }
 
