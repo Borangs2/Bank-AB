@@ -192,18 +192,18 @@ namespace BankStartWeb.Data
 
         private void SeedAdmins()
         {
-            CreateAdminIfNotExists("Stefan Holmberg", "stefan.holmberg@systementor.se", "Hejsan123#", new[] { "Admin" });
-            CreateAdminIfNotExists("Hefan Solmberg", "stefan.holmberg@customer.banken.se", "Hejsan123#", new[] { "Cashier" });
-            CreateAdminIfNotExists("Andrea Boräng", "andreas@borang.org", "Hejhej1!", new[] { "Admin", "Cashier" });
+            CreateAdminIfNotExists("Stefan_Holmberg", "stefan.holmberg@systementor.se", "Hejsan123#", new[] { "Admin" });
+            CreateAdminIfNotExists("Hefan_Solmberg", "stefan.holmberg@customer.banken.se", "Hejsan123#", new[] { "Cashier" });
+            CreateAdminIfNotExists("Andreas_Borang", "andreas@borang.org", "Hejhej1!", new[] { "Admin", "Cashier" });
         }
-        private void CreateAdminIfNotExists(string userName, string email, string password, string[] roles)
+        private void CreateAdminIfNotExists(string username, string email, string password, string[] roles)
         {
             if (_userManager.FindByEmailAsync(email).Result != null)
                 return;
 
             var user = new IdentityUser
             {
-                UserName = userName,
+                UserName = username,
                 Email = email,
                 EmailConfirmed = true
             };
