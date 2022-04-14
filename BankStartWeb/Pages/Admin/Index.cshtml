@@ -8,15 +8,28 @@
 
 <thead>
     <tr>
-
+        <th>Användarnamn</th>
+        <th>Email</th>
+        <th>Roller</th>
+        <th></th>
     </tr>
 </thead>  
 <tbody>
-        @foreach (var cust in Model.AllUsers)
+        @foreach (var user in Model.AllUsers)
         {
             <tr>
-
+                <td>@user.UserName</td>
+                <td>@user.Email</td>
+                <td>@foreach(var role in Model.GetUserRoles(user.Id).Result)
+                    {
+                        @role <text>&nbsp;&nbsp;</text>
+                    }
+                </td>
+                <td><a asp-page="ViewUser"><i class='bx bx-search-alt-2'></i></a></td>
             </tr>
         }
     </tbody>
 </table>
+<div class="d-inline-block">
+    <a asp-page="NewUser" class="new-user-btn"><i class='bx bxs-user-plus mx-1' ></i> Create new</a>
+</div>

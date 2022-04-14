@@ -12,7 +12,8 @@ body {
 }
 
 :root {
-    --colour-primary: #0CC
+    --colour-primary: #0CC;
+    --colour-primary-hover: #00e6e6;
 }
 
 .bx {
@@ -52,6 +53,10 @@ a {
     color: white;
 }
 
+.bxa-edit {
+    color: var(--colour-primary-hover);
+}
+
 .login-btn {
     width: 100%;
     position: absolute;
@@ -60,9 +65,28 @@ a {
     height: auto;
 }
 
-.logout-btn{
+.logout-btn {
     border: none;
 }
+
+.new-user-btn {
+    display: flex;
+    align-items: center;
+    width: auto;
+    color: white;
+    padding: 10px;
+    background-color: var(--colour-primary);
+    border-radius: 10px;
+}
+
+    .new-user-btn i {
+        color: white;
+    }
+
+    .new-user-btn:hover {
+        background-color: var(--colour-primary-hover);
+        color: white;
+    }
 
 .customer-search {
     display: flex;
