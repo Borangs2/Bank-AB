@@ -46,7 +46,6 @@ namespace BankStartWeb.Pages.Customers
         public int PageNum { get; set; }
         public string SortOrder { get; set; }
         public string SortCol { get; set; }
-        public int TotalPageCount { get; set; }
         public void OnGet(int id, int pagenum = 1, string col = "Date", string order = "desc")
         {
             Account = _accountService.GetAccountFromId(id);
@@ -56,36 +55,44 @@ namespace BankStartWeb.Pages.Customers
             SortCol = col;
             SortOrder = order;
             PageNum = pagenum;
+        }
+
+        public IActionResult OnGetViewMore(int id, string searchTerm, int pageNum = 1, string col = "Date", string order = "desc")
+        {
+
+            var query = _context.Accounts.Where(acc => acc.Id == id)
+                .SelectMany(t => t.Transactions);
 
 
-            var trans = Account.Transactions.AsQueryable();
-
-
-            if (!string.IsNullOrEmpty(SearchTerm))
+            if (!string.IsNullOrEmpty(searchTerm))
             {
-                trans = _searchService.Search(trans, SearchTerm);
+                query = _searchService.Search(query, searchTerm);
             }
 
-            var pageResult = trans.GetPaged(PageNum, 10);
+            query = query.OrderByDescending(o => o.Date);
+
+            query = query.OrderBy(col,
+                order == "asc" ? ExtensionMethods.QuerySortOrder.Asc :
+                    ExtensionMethods.QuerySortOrder.Desc).AsQueryable();
 
 
-            var paged = pageResult.Results.AsQueryable();
+            var pageResult = query.GetPaged(pageNum, 10);
 
-            pageResult.Results = paged.OrderBy(col,
-                            order == "asc" ? ExtensionMethods.QuerySortOrder.Asc :
-                            ExtensionMethods.QuerySortOrder.Desc).ToList();
-
-            TotalPageCount = pageResult.PageCount;
 
             Transactions = pageResult.Results.Select(trans => new TransactionViewModel
-            {
-                Id = trans.Id,
-                Operation = trans.Operation,
-                Date = trans.Date,
-                Amount = trans.Amount,
-                NewBalance = trans.NewBalance
-            })
+                {
+                    Id = trans.Id,
+                    Operation = trans.Operation,
+                    Date = trans.Date,
+                    Amount = trans.Amount,
+                    NewBalance = trans.NewBalance
+                })
                 .ToList();
+
+            return new JsonResult(new { items = Transactions }); ;
         }
+
+
+
     }
 }
