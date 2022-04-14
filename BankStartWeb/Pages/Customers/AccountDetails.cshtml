@@ -66,22 +66,24 @@
             </th>
         </tr>
     </thead>
-    <tbody>
-        @foreach (var trans in Model.Transactions)
-        {
+    <tbody id="posts-table">
+        @*@foreach (var trans in Model.Transactions)
+            {
             <tr>
-                <td>@trans.Id</td>
-                <td>@trans.Operation</td>
-                <td>@trans.Date</td>
-                <td>@trans.Amount</td>
-                <td>@trans.NewBalance</td>
+            <td>@trans.Id</td>
+            <td>@trans.Operation</td>
+            <td>@trans.Date</td>
+            <td>@trans.Amount</td>
+            <td>@trans.NewBalance</td>
 
             </tr>
-        }
+            }*@
     </tbody>
 </table>
 
-@if (Model.TotalPageCount != 1)
+<a class="btn btn-outline-info" href="javascript:fetchMore()">Visa fler</a>
+
+@*@if (Model.TotalPageCount != 1)
 {
     <div class="paging">
         <div class="paging-btn-container">
@@ -100,7 +102,7 @@
             }
         </div>
     </div>
-}
+}*@
 
 <div class="transaction-btn-container">
     <a class="transaction-btn" asp-page="/Transactions/Deposit" asp-route-accountId="@Model.Account.Id">Skapa insättning</a>
@@ -108,3 +110,50 @@
     <a class="transaction-btn" asp-page="/Transactions/Transfer" asp-route-accountId="@Model.Account.Id">Överför mellan konton</a>
 
 </div>
+
+
+@section Scripts
+{
+<script>
+            pageNum = 1;
+            function fetchMore() {
+                fetch("AccountDetails?handler=ViewMore&pageNum=" + pageNum + "&id=@Model.Id&order=@Model.SortOrder&col=@Model.SortCol&searchTerm=@Model.SearchTerm")
+                    .then((response) => response.json())
+                    .then((json) => {
+                            pageNum += 1;
+                            json.items.forEach(tableElements);
+                        }
+                    );
+            }
+    /*
+     *
+             lastPage = 0;
+            function fetchMore() {
+                fetch("View?handler=FetchMore&lastPage=" + lastPage + "&personId=@Model.Id")
+                    .then((response) => response.json())
+                    .then((json) => {
+                            lastPage = lastPage + 1;
+                            json.items.forEach(tableElements);
+                        }
+                    );
+            }
+     *
+     */
+            function tableElements(element) {
+                document.getElementById('posts-table').innerHTML +=
+                `<tr>
+                    <td>${element.id}</td>
+                    <td>${element.operation}</td>
+                    <td>${element.date}</td>
+                    <td>${element.amount}</td>
+                    <td>${element.newBalance}</td>
+                </tr>`;
+            }
+
+            document.addEventListener("DOMContentLoaded", function () {
+                fetchMore();
+            });
+</script>
+}
+
+

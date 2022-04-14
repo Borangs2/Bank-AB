@@ -58,34 +58,72 @@ namespace BankStartWeb.Pages.Customers
             PageNum = pagenum;
 
 
-            var trans = Account.Transactions.AsQueryable();
+            //var trans = Account.Transactions.AsQueryable();
 
 
-            if (!string.IsNullOrEmpty(SearchTerm))
+            //if (!string.IsNullOrEmpty(SearchTerm))
+            //{
+            //    trans = _searchService.Search(trans, SearchTerm);
+            //}
+
+            //var pageResult = trans.GetPaged(PageNum, 10);
+
+
+            //var paged = pageResult.Results.AsQueryable();
+
+            //pageResult.Results = paged.OrderBy(col,
+            //                order == "asc" ? ExtensionMethods.QuerySortOrder.Asc :
+            //                ExtensionMethods.QuerySortOrder.Desc).ToList();
+
+            //TotalPageCount = pageResult.PageCount;
+
+            //Transactions = pageResult.Results.Select(trans => new TransactionViewModel
+            //{
+            //    Id = trans.Id,
+            //    Operation = trans.Operation,
+            //    Date = trans.Date,
+            //    Amount = trans.Amount,
+            //    NewBalance = trans.NewBalance
+            //})
+            //    .ToList();
+        }
+
+        public IActionResult OnGetViewMore(int id, string searchTerm, int pageNum = 1, string col = "Date", string order = "desc")
+        {
+
+            var query = _context.Accounts.Where(acc => acc.Id == id)
+                .SelectMany(t => t.Transactions);
+
+
+            if (!string.IsNullOrEmpty(searchTerm))
             {
-                trans = _searchService.Search(trans, SearchTerm);
+                query = _searchService.Search(query, searchTerm);
             }
 
-            var pageResult = trans.GetPaged(PageNum, 10);
+            query = query.OrderByDescending(o => o.Date);
+
+            query = query.OrderBy(col,
+                order == "asc" ? ExtensionMethods.QuerySortOrder.Asc :
+                    ExtensionMethods.QuerySortOrder.Desc).AsQueryable();
 
 
-            var paged = pageResult.Results.AsQueryable();
+            var pageResult = query.GetPaged(pageNum, 10);
 
-            pageResult.Results = paged.OrderBy(col,
-                            order == "asc" ? ExtensionMethods.QuerySortOrder.Asc :
-                            ExtensionMethods.QuerySortOrder.Desc).ToList();
-
-            TotalPageCount = pageResult.PageCount;
 
             Transactions = pageResult.Results.Select(trans => new TransactionViewModel
-            {
-                Id = trans.Id,
-                Operation = trans.Operation,
-                Date = trans.Date,
-                Amount = trans.Amount,
-                NewBalance = trans.NewBalance
-            })
+                {
+                    Id = trans.Id,
+                    Operation = trans.Operation,
+                    Date = trans.Date,
+                    Amount = trans.Amount,
+                    NewBalance = trans.NewBalance
+                })
                 .ToList();
+
+            return new JsonResult(new { items = Transactions }); ;
         }
+
+
+
     }
 }
