@@ -2,3 +2,51 @@
 @model Bank_AB.Pages.Admin.ViewModel
 @{
 }
+
+
+<h1>@Model.ThisUser.UserName</h1>
+
+<table class="h5 table w-50">
+    <tr>
+        <td>Id:</td>
+        <td>@Model.ThisUser.Id</td>
+    </tr>
+    <tr>
+        <td>Email:</td>
+        <td>@Model.ThisUser.Email</td>
+    </tr>
+    <tr>
+        <td>Confirmed email:</td>
+        <td>
+            @if (Model.ThisUser.EmailConfirmed)
+            {
+                <i class='bx bx-check'></i>
+            }
+            else
+            {
+                <i class='bx bx-x'></i>
+            }
+        </td>
+    </tr>
+    <tr>
+        <td>Phone number: </td>
+        <td>@Model.ThisUser.PhoneNumber</td>
+    </tr>
+    <tr>
+        <td>2FA:</td>
+        <td>
+            @if (Model.ThisUser.TwoFactorEnabled)
+            {
+                <i class='bx bx-check'></i>
+            }
+            else
+            {
+                <i class='bx bx-x'></i>
+            }
+        </td>
+    </tr>
+</table>
+
+
+<h5 class="d-flex align-items-center">
+</h5>

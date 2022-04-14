@@ -1,5 +1,6 @@
 using Bank_AB.Services;
 using Bank_AB.Services.Search;
+using Bank_AB.Services.Users;
 using BankStartWeb.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -34,7 +35,7 @@ builder.Services.AddTransient<ISearchService<Customer>, CustomerSearchService>()
 builder.Services.AddTransient<ISearchService<Account>, AccountSearchService>();
 builder.Services.AddTransient<ISearchService<Transaction>, TransactionSearchService>();
 builder.Services.AddTransient<ITransactionsService, TransactionsService>();
-
+builder.Services.AddTransient<IUserService, UserService>();
 
 
 var app = builder.Build();

@@ -57,6 +57,15 @@ a {
     color: var(--colour-primary-hover);
 }
 
+.bx-x {
+    color: #a52a2a;
+}
+
+.bx-check {
+    color: lime;
+}
+
+
 .login-btn {
     width: 100%;
     position: absolute;
