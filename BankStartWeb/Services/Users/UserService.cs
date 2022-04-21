@@ -20,6 +20,11 @@ namespace Bank_AB.Services.Users
 
         public IUserService.ReturnCode CreateUser(IdentityUser newUser)
         {
+            if (_context.Users.Any(u => u.UserName.ToLower() == newUser.UserName.ToLower()))
+                return IUserService.ReturnCode.UsernameAlreadyInUse;
+            if (_context.Users.Any(u => u.Email == newUser.Email.ToLower()))
+                return IUserService.ReturnCode.EmailAlreadyInUse;
+
             _userManager.CreateAsync(newUser);
 
             return IUserService.ReturnCode.Ok;
@@ -29,6 +34,14 @@ namespace Bank_AB.Services.Users
 
         public IUserService.ReturnCode UpdateUser(IdentityUser updatedUser)
         {
+            if (_context.Users.Where(c => c.Id != updatedUser.Id)
+                .Any(u => u.UserName.ToLower() == updatedUser.UserName.ToLower()))
+                return IUserService.ReturnCode.UsernameAlreadyInUse;
+            
+            if (_context.Users.Where(c => c.Id != updatedUser.Id)
+                    .Any(u => u.Email.ToLower() == updatedUser.Email.ToLower()))
+                return IUserService.ReturnCode.EmailAlreadyInUse;
+
             _userManager.UpdateAsync(updatedUser);
 
             return IUserService.ReturnCode.Ok;

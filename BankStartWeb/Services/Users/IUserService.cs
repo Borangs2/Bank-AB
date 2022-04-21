@@ -8,6 +8,8 @@ namespace Bank_AB.Services.Users
         {
             Ok,
             NotFound,
+            UsernameAlreadyInUse,
+            EmailAlreadyInUse,
         }
         IdentityUser? GetUserById(string userId);
         ReturnCode CreateUser(IdentityUser updatedUser);
