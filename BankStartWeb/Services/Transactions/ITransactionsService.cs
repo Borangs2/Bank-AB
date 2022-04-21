@@ -1,4 +1,4 @@
-﻿namespace Bank_AB.Services
+﻿namespace Bank_AB.Services.Transactions
 {
     public interface ITransactionsService
     {

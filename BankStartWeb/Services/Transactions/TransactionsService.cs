@@ -3,7 +3,7 @@ using BankStartWeb.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Principal;
 
-namespace Bank_AB.Services
+namespace Bank_AB.Services.Transactions
 {
     public class TransactionsService : ITransactionsService
     {

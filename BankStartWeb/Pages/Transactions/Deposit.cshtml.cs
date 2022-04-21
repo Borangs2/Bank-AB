@@ -1,11 +1,11 @@
 using Bank_AB.Infrastructure.Attributes;
-using Bank_AB.Services;
 using BankStartWeb.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using Bank_AB.Services.Transactions;
 
 namespace Bank_AB.Pages.Transactions
 {
