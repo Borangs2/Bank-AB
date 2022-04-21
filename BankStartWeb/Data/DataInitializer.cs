@@ -179,14 +179,14 @@ namespace BankStartWeb.Data
 
         private void SeedRoles()
         {
-            CreateRoleIfNotExists("Admin");
-            CreateRoleIfNotExists("Cashier");
+            CreateRoleIfNotExists("Admin", "Administratör");
+            CreateRoleIfNotExists("Cashier", "Kassör");
         }
-        private void CreateRoleIfNotExists(string roleName)
+        private void CreateRoleIfNotExists(string roleName, string translatedName)
         {
-            if (_dbContext.Roles.Any(r => r.Name == roleName))
+            if (_dbContext.Roles.Any(r => r.NormalizedName == roleName))
                 return;
-            _dbContext.Roles.Add(new IdentityRole { Name = roleName, NormalizedName = roleName });
+            _dbContext.Roles.Add(new IdentityRole { Name = translatedName, NormalizedName = roleName });
             _dbContext.SaveChanges();
         }
 
