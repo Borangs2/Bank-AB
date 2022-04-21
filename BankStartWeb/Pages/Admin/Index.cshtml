@@ -20,7 +20,7 @@
             <tr>
                 <td>@user.UserName</td>
                 <td>@user.Email</td>
-                <td>@foreach(var role in Model.GetUserRoles(user.Id).Result)
+                <td>@foreach(var role in Model._userService.GetUserRoles(user.Id).Result)
                     {
                         @role <text>&nbsp;&nbsp;</text>
                     }

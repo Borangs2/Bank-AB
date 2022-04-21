@@ -1,3 +1,5 @@
+using System.Runtime.CompilerServices;
+using Bank_AB.Services.Users;
 using BankStartWeb.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -8,17 +10,15 @@ namespace Bank_AB.Pages.Admin
 {
     public class IndexModel : PageModel
     {
-        public UserManager<IdentityUser> _userManager { get; }
-        public ApplicationDbContext _context { get; }
-        public IndexModel(ApplicationDbContext context, UserManager<IdentityUser> userManager)
+        public readonly IUserService _userService;
+        public readonly ApplicationDbContext _context;
+        public IndexModel(ApplicationDbContext context, IUserService userService)
         {
-            _userManager = userManager;
+            _userService = userService;
             _context = context;
         }
 
-
         public List<IdentityUser> AllUsers { get; set; }
-
 
         public void OnGet()
         {
@@ -30,10 +30,6 @@ namespace Bank_AB.Pages.Admin
             AllUsers = _context.Users.ToList();
         }
 
-        public async Task<string[]> GetUserRoles(string id)
-        {
-            var roles = await _userManager.GetRolesAsync(_context.Users.First(u => u.Id == id));
-            return roles.ToArray();
-        }
+        
     }
 }
