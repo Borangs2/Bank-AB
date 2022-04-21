@@ -46,5 +46,11 @@ namespace Bank_AB.Services.Users
 
             return IUserService.ReturnCode.Ok;
         }
+
+        public async Task<string[]> GetUserRoles(string id)
+        {
+            var roles = await _userManager.GetRolesAsync(_context.Users.First(u => u.Id == id));
+            return roles.ToArray();
+        }
     }
 }

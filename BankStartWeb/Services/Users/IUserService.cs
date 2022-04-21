@@ -15,7 +15,7 @@ namespace Bank_AB.Services.Users
         ReturnCode CreateUser(IdentityUser updatedUser);
         ReturnCode UpdateUser(IdentityUser updatedUser);
 
-
+        Task<string[]> GetUserRoles(string id);
 
 
     }
