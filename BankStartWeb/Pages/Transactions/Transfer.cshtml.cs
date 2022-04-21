@@ -27,9 +27,11 @@ namespace Bank_AB.Pages.Transactions
             AccountId = accountId;
         }
 
+        [Required(ErrorMessage = "Ange ett nummer")]
         [Range(1, Int32.MaxValue, ErrorMessage = "Ange ett nummer större än 0")]
         [IsNumeric(ErrorMessage = "Ange ett nummer större än 0")]
         public decimal Amount { get; set; }
+        [Required(ErrorMessage = "Ange ett konto")]
         [Range(1, Int32.MaxValue, ErrorMessage = "Ange ett kontonummer större än 0")]
         public int TransAccountId { get; set; }
 
