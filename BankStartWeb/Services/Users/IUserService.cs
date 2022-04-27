@@ -10,7 +10,9 @@ namespace Bank_AB.Services.Users
             NotFound,
             UsernameAlreadyInUse,
             EmailAlreadyInUse,
-            InvalidPassword
+            InvalidPassword,
+            InvalidUsername,
+            InvalidUsernameOrPassword
         }
         IdentityUser? GetUserById(string userId);
         ReturnCode CreateUser(IdentityUser updatedUser, string[] roles);

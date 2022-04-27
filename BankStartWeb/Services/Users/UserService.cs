@@ -30,7 +30,14 @@ namespace Bank_AB.Services.Users
             var result = _userManager.CreateAsync(newUser, newUser.PasswordHash).GetAwaiter().GetResult();
 
             if (!result.Succeeded)
-                return IUserService.ReturnCode.InvalidPassword;
+                foreach (var error in result.Errors)
+                {
+                    if (error.Code.ToLower().Contains("password"))
+                        return IUserService.ReturnCode.InvalidPassword;
+                    if (error.Code.ToLower().Contains("username"))
+                        return IUserService.ReturnCode.InvalidUsername;
+                    return IUserService.ReturnCode.InvalidUsernameOrPassword;
+                }
 
             _userManager.AddToRolesAsync(newUser, roles).Wait();
             _userManager.UpdateAsync(newUser).Wait();
