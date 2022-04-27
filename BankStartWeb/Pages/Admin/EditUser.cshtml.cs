@@ -11,15 +11,11 @@ namespace Bank_AB.Pages.Admin
     public class EditModel : PageModel
     {
         private readonly IUserService _userService;
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly ApplicationDbContext _context;
 
 
-        public EditModel(IUserService userService, UserManager<IdentityUser> userManager, ApplicationDbContext context)
+        public EditModel(IUserService userService)
         {
             _userService = userService;
-            _userManager = userManager;
-            _context = context;
         }
 
         [BindProperty]
@@ -31,7 +27,8 @@ namespace Bank_AB.Pages.Admin
         public string Email { get; set; }
         [BindProperty]
         public string? PhoneNumber { get; set; }
-        [BindProperty]
+
+        [BindProperty] 
         public bool EmailConfirmed { get; set; }
         [BindProperty]
         public bool TwoFA { get; set; }
@@ -77,24 +74,38 @@ namespace Bank_AB.Pages.Admin
 
         public IActionResult OnPost(string id)
         {
-            var user = _userService.GetUserById(id);
+            if (ModelState.IsValid)
+            {
+                var user = _userService.GetUserById(id);
 
-            user.UserName = Name;
-            user.Email = Email;
-            user.PhoneNumber = PhoneNumber;
-            user.EmailConfirmed = EmailConfirmed;
-            user.TwoFactorEnabled = TwoFA;
 
-            List<string> roles = new List<string>();
+                user.UserName = Name;
+                user.Email = Email;
+                user.PhoneNumber = PhoneNumber;
+                user.EmailConfirmed = EmailConfirmed;
+                user.TwoFactorEnabled = TwoFA;
 
-            if (IsAdmin)
-                roles.Add("Administratör");
-            if (IsCashier)
-                roles.Add("Kassör");
+                List<string> roles = new List<string>();
 
-            _userService.UpdateUser(user, roles.ToArray());
+                if (IsAdmin)
+                    roles.Add("Administratör");
+                if (IsCashier)
+                    roles.Add("Kassör");
 
-            return RedirectToPage("ViewUser", new {userid = id});
+                var result = _userService.UpdateUser(user, roles.ToArray());
+
+                if (result == IUserService.ReturnCode.UsernameAlreadyInUse)
+                    ModelState.AddModelError(nameof(Name), "Användarnamnet används redan");
+                if (result == IUserService.ReturnCode.EmailAlreadyInUse)
+                    ModelState.AddModelError(nameof(Email), "Email adressen används redan");
+
+                //Kolla Modelstate en sista gång
+                if (ModelState.IsValid)
+
+                    return RedirectToPage("ViewUser", new { userid = id });
+            }
+
+            return Page();
         }
     }
 }

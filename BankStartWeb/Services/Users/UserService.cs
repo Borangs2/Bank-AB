@@ -41,13 +41,11 @@ namespace Bank_AB.Services.Users
         {
             string id = updatedUser.Id;
 
-            if (_context.Users /*.Where(c => c.Id != updatedUser.Id )*/
-                .Any(u => u.UserName.ToLower() == updatedUser.UserName.ToLower() && u.Id != updatedUser.Id))
+            if (_context.Users.Any(u => u.UserName.ToLower() == updatedUser.UserName.ToLower() && u.Id != updatedUser.Id))
                 return IUserService.ReturnCode.UsernameAlreadyInUse;
 
 
-            if (_context.Users /*.Where(c => c.Id != updatedUser.Id)*/
-                .Any(u => u.Email.ToLower() == updatedUser.Email.ToLower() && u.Id != updatedUser.Id))
+            if (_context.Users.Any(u => u.Email.ToLower() == updatedUser.Email.ToLower() && u.Id != updatedUser.Id))
                 return IUserService.ReturnCode.EmailAlreadyInUse;
 
 

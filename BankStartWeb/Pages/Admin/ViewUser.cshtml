@@ -35,7 +35,7 @@
     <tr>
         <td>2FA:</td>
         <td>
-            @if (Model.ThisUser.TwoFactorEnabled)
+            @if (Model.ThisUser.TwoFA)
             {
                 <i class='bx bx-check'></i>
             }
@@ -52,7 +52,7 @@
             Roles:
         </td>
         <td>
-            @foreach (string role in Model.Roles)
+            @foreach (string role in Model.ThisUser.Roles)
             {
                 <p>@role</p>
             }

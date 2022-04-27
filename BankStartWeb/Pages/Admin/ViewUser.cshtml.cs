@@ -1,3 +1,4 @@
+using System.Diagnostics.Contracts;
 using Bank_AB.Services.Users;
 using BankStartWeb.Data;
 using Microsoft.AspNetCore.Identity;
@@ -17,17 +18,36 @@ namespace Bank_AB.Pages.Admin
             _userService = userService;
         }
 
-        public IdentityUser? ThisUser { get; set; }
+        public class ViewUserViewModel
+        {
+            public string Id { get; set; }
+            public string UserName { get; set; }
+            public string Email { get; set; }
+            public string PhoneNumber { get; set; }
+            public bool EmailConfirmed { get; set; }
+            public bool TwoFA { get; set; }
+            public string[] Roles { get; set; }
+        }
+
+
+        public ViewUserViewModel ThisUser { get; set; }
         public string[] Roles { get; set; }
 
         public void OnGet(string userId)
         {
-            ThisUser = _userService.GetUserById(userId);
-            Roles = _userService.GetUserRoles(userId).Result;
+            var user = _userService.GetUserById(userId);
 
+            ThisUser = new ViewUserViewModel
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                EmailConfirmed = user.EmailConfirmed,
+                TwoFA = user.TwoFactorEnabled,
+                Roles = _userService.GetUserRoles(userId).Result
 
-
-
+            };
         }
     }
 }
