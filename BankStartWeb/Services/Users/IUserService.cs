@@ -12,8 +12,8 @@ namespace Bank_AB.Services.Users
             EmailAlreadyInUse,
         }
         IdentityUser? GetUserById(string userId);
-        ReturnCode CreateUser(IdentityUser updatedUser);
-        ReturnCode UpdateUser(IdentityUser updatedUser);
+        ReturnCode CreateUser(IdentityUser updatedUser, string[] roles);
+        ReturnCode UpdateUser(IdentityUser updatedUser, string[] roles);
 
         Task<string[]> GetUserRoles(string id);
 
