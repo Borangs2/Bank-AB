@@ -18,14 +18,15 @@ namespace Bank_AB.Pages.Admin
         }
 
         public IdentityUser? ThisUser { get; set; }
+        public string[] Roles { get; set; }
 
         public void OnGet(string userId)
         {
             ThisUser = _userService.GetUserById(userId);
+            Roles = _userService.GetUserRoles(userId).Result;
 
 
 
-            
 
         }
     }

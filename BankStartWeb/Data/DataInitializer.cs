@@ -179,22 +179,22 @@ namespace BankStartWeb.Data
 
         private void SeedRoles()
         {
-            CreateRoleIfNotExists("Admin", "Administratör");
-            CreateRoleIfNotExists("Cashier", "Kassör");
+            CreateRoleIfNotExists("Administratör", "ADMINISTRATÖR");
+            CreateRoleIfNotExists("Kassör", "KASSÖR");
         }
-        private void CreateRoleIfNotExists(string roleName, string translatedName)
+        private void CreateRoleIfNotExists(string roleName, string normalizedName)
         {
             if (_dbContext.Roles.Any(r => r.NormalizedName == roleName))
                 return;
-            _dbContext.Roles.Add(new IdentityRole { Name = translatedName, NormalizedName = roleName });
+            _dbContext.Roles.Add(new IdentityRole { Name = roleName, NormalizedName = normalizedName });
             _dbContext.SaveChanges();
         }
 
         private void SeedAdmins()
         {
-            CreateAdminIfNotExists("Stefan_Holmberg", "stefan.holmberg@systementor.se", "Hejsan123#", new[] { "Admin" });
-            CreateAdminIfNotExists("Hefan_Solmberg", "stefan.holmberg@customer.banken.se", "Hejsan123#", new[] { "Cashier" });
-            CreateAdminIfNotExists("Andreas_Borang", "andreas@borang.org", "Hejhej1!", new[] { "Admin", "Cashier" });
+            CreateAdminIfNotExists("Stefan_Holmberg", "stefan.holmberg@systementor.se", "Hejsan123#", new[] { "ADMINISTRATÖR" });
+            CreateAdminIfNotExists("Hefan_Solmberg", "stefan.holmberg@customer.banken.se", "Hejsan123#", new[] { "KASSÖR" });
+            CreateAdminIfNotExists("Andreas_Borang", "andreas@borang.org", "Hejhej1!", new[] { "ADMINISTRATÖR", "KASSÖR" });
         }
         private void CreateAdminIfNotExists(string username, string email, string password, string[] roles)
         {

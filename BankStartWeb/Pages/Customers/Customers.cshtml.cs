@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BankStartWeb.Pages.Customers
 {
-    [Authorize(Roles = "Admin, Cashier")]
+    [Authorize(Roles = "Administratör, Kassör")]
     public class CustomersModel : PageModel
     {
         private readonly ApplicationDbContext _context;
