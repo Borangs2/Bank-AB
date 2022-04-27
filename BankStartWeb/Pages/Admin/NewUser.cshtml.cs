@@ -18,6 +18,16 @@ namespace Bank_AB.Pages.Admin
         [BindProperty]
         [Required(ErrorMessage = "Namn behöver vara fyllt")]
         public string Name { get; set; }
+        [BindProperty]
+        [DataType(DataType.Password)]
+        [Required(ErrorMessage = "Lösenord måste vara fyllt")]
+        public string Password { get; set; }
+        [BindProperty]
+        [DataType(DataType.Password)]
+        [Required(ErrorMessage = "Detta fält måste vara fyllt")]
+        [Compare(nameof(Password), ErrorMessage = "Lösenorden stämmer inte överens")]
+        public string PasswordConfirm { get; set; }
+
         [Required(ErrorMessage = "Email behöver vara fyllt")]
         [BindProperty]
         [EmailAddress(ErrorMessage = "Detta är inte en giltig email address")]
@@ -25,7 +35,7 @@ namespace Bank_AB.Pages.Admin
         [BindProperty]
         public string? PhoneNumber { get; set; }
 
-        [BindProperty] 
+        [BindProperty]
         public bool EmailConfirmed { get; set; } = true;
         [BindProperty]
         public bool TwoFA { get; set; }
@@ -50,6 +60,7 @@ namespace Bank_AB.Pages.Admin
                 var newUser = new IdentityUser
                 {
                     UserName = Name,
+                    PasswordHash = Password,
                     Email = Email,
                     PhoneNumber = PhoneNumber,
                     EmailConfirmed = EmailConfirmed,
@@ -64,13 +75,28 @@ namespace Bank_AB.Pages.Admin
 
                 var result = _userService.CreateUser(newUser, roles.ToArray());
 
-                if(result == IUserService.ReturnCode.UsernameAlreadyInUse)
-                    ModelState.AddModelError(nameof(Name), "Användarnamnet används redan");
-                if (result == IUserService.ReturnCode.EmailAlreadyInUse)
-                    ModelState.AddModelError(nameof(Email), "Email adressen används redan");
+                switch (result)
+                {
+                    case IUserService.ReturnCode.UsernameAlreadyInUse:
+                        ModelState.AddModelError(nameof(Name), "Användarnamnet används redan");
+                        break;
+                    case IUserService.ReturnCode.EmailAlreadyInUse:
+                        ModelState.AddModelError(nameof(Email), "Email adressen används redan");
+                        break;
+                    case IUserService.ReturnCode.InvalidUsername:
+                        ModelState.AddModelError(nameof(Name), "Användarnamnet är ogiltigt. Användarnamnet kan bara innehålla bokstäver mellan a-z och siffror från 0-9");
+                        break;
+                    case IUserService.ReturnCode.InvalidPassword:
+                        ModelState.AddModelError(nameof(Password), "Lösenordet är ogiltigt. Lösenordet behöver innehålla åtminstone 1 stor och lite bokstav och minst 1 siffra");
+                        break;
+                    case IUserService.ReturnCode.InvalidUsernameOrPassword:
+                        ModelState.AddModelError(nameof(Name), "Användarnamnet eller lösenordet är ogiltigt");
+                        break;
+                }
+
 
                 //Kolla Modelstate en sista gång
-                if(ModelState.IsValid)
+                if (ModelState.IsValid)
                     return RedirectToPage("Index");
             }
 

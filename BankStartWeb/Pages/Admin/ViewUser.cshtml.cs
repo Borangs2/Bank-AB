@@ -46,7 +46,6 @@ namespace Bank_AB.Pages.Admin
                 EmailConfirmed = user.EmailConfirmed,
                 TwoFA = user.TwoFactorEnabled,
                 Roles = _userService.GetUserRoles(userId).Result
-
             };
         }
     }
