@@ -27,9 +27,12 @@ namespace Bank_AB.Services.Users
                 return IUserService.ReturnCode.EmailAlreadyInUse;
 
 
-            _userManager.CreateAsync(newUser);
+            var result = _userManager.CreateAsync(newUser, newUser.PasswordHash).GetAwaiter().GetResult();
 
-            _userManager.AddToRolesAsync(newUser, roles);
+            if (!result.Succeeded)
+                return IUserService.ReturnCode.InvalidPassword;
+
+            _userManager.AddToRolesAsync(newUser, roles).Wait();
             _userManager.UpdateAsync(newUser).Wait();
 
             return IUserService.ReturnCode.Ok;
