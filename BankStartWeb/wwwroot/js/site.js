@@ -14,6 +14,7 @@ var filename = url.split('/').pop();
 var homeBtn = document.getElementById("homeBtn");
 var custBtn = document.getElementById("custBtn");
 var loginBtn = document.getElementById("loginBtn");
+var adminBtn = document.getElementById("adminBtn");
 
 switch (filename) {
     //Index
@@ -24,4 +25,6 @@ switch (filename) {
         custBtn.classList.add("active");
     case "Login":
         loginBtn.classList.add("active");
+    case "Admin":
+        adminBtn.classList.add("active");
 }
