@@ -1,5 +1,7 @@
-﻿using Bank_AB.Services;
+﻿
+
 using Bank_AB.Services.Transactions;
+using Bank_AB.Services;
 using BankStartWeb.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -38,10 +40,5 @@ namespace BankTests.Services.Transactions
             _sut = new TransactionsService(_context, _accountService);
 
         }
-
-
-
-
-
     }
 }
