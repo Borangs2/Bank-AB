@@ -17,11 +17,14 @@ namespace Bank_AB.Services.Transactions
             _accountService = accountService;
         }
 
+        private readonly int MaxAmount = Int32.MaxValue;
 
         public ITransactionsService.ReturnCode Deposit(int accountId, decimal amount, string operation, string type)
         {
             if (amount <= 0)
                 return ITransactionsService.ReturnCode.ValueNegative;
+            if (amount >= MaxAmount)
+                return ITransactionsService.ReturnCode.ValueToHigh;
 
             Account account = _accountService.GetAccountFromId(accountId);
 
@@ -51,6 +54,9 @@ namespace Bank_AB.Services.Transactions
         {
             if (amount <= 0)
                 return ITransactionsService.ReturnCode.ValueNegative;
+            if (amount >= MaxAmount)
+                return ITransactionsService.ReturnCode.ValueToHigh;
+
 
             Account account = _accountService.GetAccountFromId(accountId);
 
@@ -82,7 +88,8 @@ namespace Bank_AB.Services.Transactions
         {
             if(amount <= 0)
                 return ITransactionsService.ReturnCode.ValueNegative;
-
+            if (amount >= MaxAmount)
+                return ITransactionsService.ReturnCode.ValueToHigh;
 
             Account fromAccount = _accountService.GetAccountFromId(fromAccountId);
             Account toAccount = _accountService.GetAccountFromId(toAccountId);
