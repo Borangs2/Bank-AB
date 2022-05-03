@@ -14,6 +14,8 @@ public class AccountService : IAccountService
 
     public Account? GetAccountFromId(int id)
     {
-        return _context.Accounts.Include(trans => trans.Transactions).FirstOrDefault(acc => acc.Id == id);
+        
+         var i = _context.Accounts.Include(trans => trans.Transactions).FirstOrDefault(acc => acc.Id == id);
+         return i;
     }
 }

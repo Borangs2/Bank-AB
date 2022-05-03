@@ -1,24 +1,15 @@
 ﻿using Bank_AB.Data;
 using Bank_AB.Services.Accounts;
 using Bank_AB.Services.Transactions;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BankTests.Services.Transactions;
 
-public class FakeAccountService : IAccountService
-{
-    public bool GetFlag;
-
-    public Account GetAccountFromId(int id)
-    {
-        GetFlag = true;
-        return new Account();
-    }
-}
-
 [TestClass]
-internal class TransactionsServiceTests
+public class TransactionsServiceTests
 {
     private readonly AccountService _accountService;
     private readonly ApplicationDbContext _context;
@@ -34,6 +25,9 @@ internal class TransactionsServiceTests
         _accountService = new AccountService(_context);
 
         _sut = new TransactionsService(_context, _accountService);
+
+        var data = new TestDataInitilizer(_context);
+        data.SeedData();
     }
 
 
@@ -81,8 +75,8 @@ internal class TransactionsServiceTests
     [TestMethod]
     public void Withdraw_amount_cannot_be_negative()
     {
-        var result = _sut.Withdraw(1, 50, "", "");
-        Assert.AreEqual(result, ITransactionsService.ReturnCode.ValueToHigh);
+        var result = _sut.Withdraw(1, -50, "", "");
+        Assert.AreEqual(result, ITransactionsService.ReturnCode.ValueNegative);
     }
 
     [TestMethod]
@@ -93,7 +87,7 @@ internal class TransactionsServiceTests
     }
 
     [TestMethod]
-    public void Cannot_withdraw_more_then_on_account()
+    public void Cannot_withdraw_more_then_in_account()
     {
         var balance = _accountService.GetAccountFromId(1).Balance;
         var result = _sut.Withdraw(1, balance + 1000, "", "");
