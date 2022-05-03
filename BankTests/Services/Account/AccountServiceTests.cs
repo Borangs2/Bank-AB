@@ -8,7 +8,7 @@ namespace BankTests.Services.Accounts;
 [TestClass]
 internal class AccountServiceTests
 {
-    private readonly AccountService _accountService;
+    private readonly AccountService _sut;
     private readonly ApplicationDbContext _context;
 
     public AccountServiceTests()
@@ -18,7 +18,7 @@ internal class AccountServiceTests
             .Options;
         _context = new ApplicationDbContext(options);
 
-        _accountService = new AccountService(_context);
+        _sut = new AccountService(_context);
     }
 
 
@@ -33,6 +33,7 @@ internal class AccountServiceTests
     {
     }
 
+    [TestMethod]
     public void Get_account_from_invalid_id()
     {
     }
