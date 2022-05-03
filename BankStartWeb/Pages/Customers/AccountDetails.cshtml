@@ -12,62 +12,62 @@
 <h5>Saldo: @Model.Account.Balance</h5>
 
 <form method="GET">
-    <input asp-for="Id" value="@Model.Account.Id" />
-    <input asp-for="SearchTerm" placeholder=" Sök ..." autocomplete="off" />
+    <input asp-for="Id" value="@Model.Account.Id"/>
+    <input asp-for="SearchTerm" placeholder=" Sök ..." autocomplete="off"/>
 </form>
 
 <table class="table">
     <thead>
-        <tr>
-            <th>
-                Id
-                <a asp-page="/Customers/AccountDetails" asp-route-col="Id" asp-route-order="asc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-id="@Model.Id">
-                    <i class='bx bx-sort-a-z'></i>
-                </a>
-                <a asp-page="/Customers/AccountDetails" asp-route-col="Id" asp-route-order="desc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-id="@Model.Id">
-                    <i class='bx bx-sort-z-a'></i>
-                </a>
-            </th>
-            <th>
-                Typ
-                <a asp-page="/Customers/AccountDetails" asp-route-col="Operation" asp-route-order="asc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-id="@Model.Id">
-                    <i class='bx bx-sort-a-z'></i>
-                </a>
-                <a asp-page="/Customers/AccountDetails" asp-route-col="Operation" asp-route-order="desc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-id="@Model.Id">
-                    <i class='bx bx-sort-z-a'></i>
-                </a>
-            </th>
-            <th>
-                Datum
-                <a asp-page="/Customers/AccountDetails" asp-route-col="Date" asp-route-order="asc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-id="@Model.Id">
-                    <i class='bx bx-sort-a-z'></i>
-                </a>
-                <a asp-page="/Customers/AccountDetails" asp-route-col="Date" asp-route-order="desc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-id="@Model.Id">
-                    <i class='bx bx-sort-z-a'></i>
-                </a>
-            </th>
-            <th>
-                Mängd
-                <a asp-page="/Customers/AccountDetails" asp-route-col="Amount" asp-route-order="asc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-id="@Model.Id">
-                    <i class='bx bx-sort-a-z'></i>
-                </a>
-                <a asp-page="/Customers/AccountDetails" asp-route-col="Amount" asp-route-order="desc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-id="@Model.Id">
-                    <i class='bx bx-sort-z-a'></i>
-                </a>
-            </th>
-            <th>
-                Nytt saldo
-                <a asp-page="/Customers/AccountDetails" asp-route-col="NewBalance" asp-route-order="asc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-id="@Model.Id">
-                    <i class='bx bx-sort-a-z'></i>
-                </a>
-                <a asp-page="/Customers/AccountDetails" asp-route-col="NewBalance" asp-route-order="desc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-id="@Model.Id">
-                    <i class='bx bx-sort-z-a'></i>
-                </a>
-            </th>
-        </tr>
+    <tr>
+        <th>
+            Id
+            <a asp-page="/Customers/AccountDetails" asp-route-col="Id" asp-route-order="asc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-id="@Model.Id">
+                <i class="bx bx-sort-a-z"></i>
+            </a>
+            <a asp-page="/Customers/AccountDetails" asp-route-col="Id" asp-route-order="desc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-id="@Model.Id">
+                <i class="bx bx-sort-z-a"></i>
+            </a>
+        </th>
+        <th>
+            Typ
+            <a asp-page="/Customers/AccountDetails" asp-route-col="Operation" asp-route-order="asc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-id="@Model.Id">
+                <i class="bx bx-sort-a-z"></i>
+            </a>
+            <a asp-page="/Customers/AccountDetails" asp-route-col="Operation" asp-route-order="desc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-id="@Model.Id">
+                <i class="bx bx-sort-z-a"></i>
+            </a>
+        </th>
+        <th>
+            Datum
+            <a asp-page="/Customers/AccountDetails" asp-route-col="Date" asp-route-order="asc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-id="@Model.Id">
+                <i class="bx bx-sort-a-z"></i>
+            </a>
+            <a asp-page="/Customers/AccountDetails" asp-route-col="Date" asp-route-order="desc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-id="@Model.Id">
+                <i class="bx bx-sort-z-a"></i>
+            </a>
+        </th>
+        <th>
+            Mängd
+            <a asp-page="/Customers/AccountDetails" asp-route-col="Amount" asp-route-order="asc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-id="@Model.Id">
+                <i class="bx bx-sort-a-z"></i>
+            </a>
+            <a asp-page="/Customers/AccountDetails" asp-route-col="Amount" asp-route-order="desc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-id="@Model.Id">
+                <i class="bx bx-sort-z-a"></i>
+            </a>
+        </th>
+        <th>
+            Nytt saldo
+            <a asp-page="/Customers/AccountDetails" asp-route-col="NewBalance" asp-route-order="asc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-id="@Model.Id">
+                <i class="bx bx-sort-a-z"></i>
+            </a>
+            <a asp-page="/Customers/AccountDetails" asp-route-col="NewBalance" asp-route-order="desc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-id="@Model.Id">
+                <i class="bx bx-sort-z-a"></i>
+            </a>
+        </th>
+    </tr>
     </thead>
     <tbody id="posts-table">
-        @*@foreach (var trans in Model.Transactions)
+    @*@foreach (var trans in Model.Transactions)
             {
             <tr>
             <td>@trans.Id</td>
@@ -114,33 +114,35 @@
 
 @section Scripts
 {
-<script>
-            pageNum = 1;
-            function fetchMore() {
-                fetch("AccountDetails?handler=ViewMore&pageNum=" + pageNum + "&id=@Model.Id&order=@Model.SortOrder&col=@Model.SortCol&searchTerm=@Model.SearchTerm")
-                    .then((response) => response.json())
-                    .then((json) => {
-                            pageNum += 1;
-                            json.items.forEach(tableElements);
-                        }
-                    );
-            }
-    /*
-     *
-             lastPage = 0;
-            function fetchMore() {
-                fetch("View?handler=FetchMore&lastPage=" + lastPage + "&personId=@Model.Id")
-                    .then((response) => response.json())
-                    .then((json) => {
-                            lastPage = lastPage + 1;
-                            json.items.forEach(tableElements);
-                        }
-                    );
-            }
-     *
-     */
-            function tableElements(element) {
-                document.getElementById('posts-table').innerHTML +=
+    <script>
+        pageNum = 1;
+
+        function fetchMore() {
+            fetch("AccountDetails?handler=ViewMore&pageNum=" + pageNum + "&id=@Model.Id&order=@Model.SortOrder&col=@Model.SortCol&searchTerm=@Model.SearchTerm")
+                .then((response) => response.json())
+                .then((json) => {
+                        pageNum += 1;
+                        json.items.forEach(tableElements);
+                    }
+                );
+        }
+
+        /*
+         *
+                 lastPage = 0;
+                function fetchMore() {
+                    fetch("View?handler=FetchMore&lastPage=" + lastPage + "&personId=@Model.Id")
+                        .then((response) => response.json())
+                        .then((json) => {
+                                lastPage = lastPage + 1;
+                                json.items.forEach(tableElements);
+                            }
+                        );
+                }
+         *
+         */
+        function tableElements(element) {
+            document.getElementById('posts-table').innerHTML +=
                 `<tr>
                     <td>${element.id}</td>
                     <td>${element.operation}</td>
@@ -148,12 +150,11 @@
                     <td>${element.amount}</td>
                     <td>${element.newBalance}</td>
                 </tr>`;
-            }
+        }
 
-            document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded",
+            function() {
                 fetchMore();
             });
-</script>
+    </script>
 }
-
-

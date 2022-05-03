@@ -1,23 +1,19 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Bank_AB.Infrastructure.Attributes
+namespace Bank_AB.Infrastructure.Attributes;
+
+public class IsNumericAttribute : ValidationAttribute
 {
-    public class IsNumericAttribute : ValidationAttribute
+    protected override ValidationResult IsValid(object value, ValidationContext validationContext)
     {
-        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        if (value != null)
         {
-            if (value != null)
-            {
-                decimal val;
-                var isNumeric = decimal.TryParse(value.ToString(), out val);
+            decimal val;
+            var isNumeric = decimal.TryParse(value.ToString(), out val);
 
-                if (!isNumeric)
-                {
-                    return new ValidationResult("Must be numeric");
-                }
-            }
-
-            return ValidationResult.Success;
+            if (!isNumeric) return new ValidationResult("Must be numeric");
         }
+
+        return ValidationResult.Success;
     }
 }

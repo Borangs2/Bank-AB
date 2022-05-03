@@ -1,21 +1,19 @@
 ﻿using Bank_AB.Data;
-using BankStartWeb.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Bank_AB.Services
+namespace Bank_AB.Services;
+
+public class CustomerService : ICustomerService
 {
-    public class CustomerService : ICustomerService
+    private readonly ApplicationDbContext _context;
+
+    public CustomerService(ApplicationDbContext context)
     {
-        private readonly ApplicationDbContext _context;
+        _context = context;
+    }
 
-        public CustomerService(ApplicationDbContext context)
-        {
-            _context = context;
-        }
-
-        public Customer GetCustomerFromId(int id)
-        {
-            return _context.Customers.Include(c => c.Accounts).First(cust => cust.Id == id);
-        }
+    public Customer GetCustomerFromId(int id)
+    {
+        return _context.Customers.Include(c => c.Accounts).First(cust => cust.Id == id);
     }
 }

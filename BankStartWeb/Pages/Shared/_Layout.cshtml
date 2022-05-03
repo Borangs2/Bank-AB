@@ -4,69 +4,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] - BankStartWeb</title>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet"> <!-- https://fonts.google.com/ -->
-    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/templatemo-xtra-blog.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/css/templatemo-xtra-blog.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
 
 </head>
 <body>
-    <header class="tm-header" id="tm-header">
-        <div class="tm-header-wrapper">
-            <button class="navbar-toggler" type="button" aria-label="Toggle navigation" id="navbar-toggler">
-                <i class='bx bx-menu'></i>
-            </button>
-            <div class="tm-site-header">
-                <div class="mb-3 mx-auto tm-site-logo"><i class='bx bxs-bank'></i></div>
-                <h1 class="text-center">Bank AB</h1>
+<header class="tm-header" id="tm-header">
+    <div class="tm-header-wrapper">
+        <button class="navbar-toggler" type="button" aria-label="Toggle navigation" id="navbar-toggler">
+            <i class="bx bx-menu"></i>
+        </button>
+        <div class="tm-site-header">
+            <div class="mb-3 mx-auto tm-site-logo">
+                <i class="bx bxs-bank"></i>
             </div>
-            <nav class="tm-nav" id="tm-nav">
-                <ul>
-                    <li class="tm-nav-item" id="homeBtn">
-                        <a asp-page="/Index" class="tm-nav-link">
-                            <i class='bx bxs-home'></i>
-                            Hem
+            <h1 class="text-center">Bank AB</h1>
+        </div>
+        <nav class="tm-nav" id="tm-nav">
+            <ul>
+                <li class="tm-nav-item" id="homeBtn">
+                    <a asp-page="/Index" class="tm-nav-link">
+                        <i class="bx bxs-home"></i>
+                        Hem
+                    </a>
+                </li>
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <li class="tm-nav-item" id="custBtn">
+                        <a asp-page="/Customers/Customers" class="tm-nav-link">
+                            <i class='bx bxs-group'></i>
+                            Kunder
                         </a>
                     </li>
-                    @if (SignInManager.IsSignedIn(User))
-                    {
-                        <li class="tm-nav-item" id="custBtn">
-                            <a asp-page="/Customers/Customers" class="tm-nav-link">
-                                <i class='bx bxs-group'></i>
-                                Kunder
-                            </a>
-                        </li>
-                    }
-                    <li class="tm-nav-item" id="adminBtn">
-                            <a asp-page="/Admin/Index" class="tm-nav-link">
-                                <i class='bx bxs-group'></i>
-                                Admin
-                            </a>
-                        </li>
-                </ul>
-
-            </nav>
-            <ul class="login-btn">
-                <partial name="_LoginPartial" />
+                }
+                <li class="tm-nav-item" id="adminBtn">
+                    <a asp-page="/Admin/Index" class="tm-nav-link">
+                        <i class="bx bxs-group"></i>
+                        Admin
+                    </a>
+                </li>
             </ul>
-        </div>
-    </header>
-    <div class="container-fluid">
-        <main class="tm-main">
-            @RenderBody()
-            <footer class="row tm-row">
-                <hr class="col-12">
-                &copy; Andreas Boräng
-            </footer>
-        </main>
-    </div>
-    <script src="~/js/site.js"></script>
-    @await RenderSectionAsync("Scripts", required: false)
 
-    <partial name="_validationScriptsPartial" />
+        </nav>
+        <ul class="login-btn">
+            <partial name="_LoginPartial"/>
+        </ul>
+    </div>
+</header>
+<div class="container-fluid">
+    <main class="tm-main">
+        @RenderBody()
+        <footer class="row tm-row">
+            <hr class="col-12">
+            &copy; Andreas Boräng
+        </footer>
+    </main>
+</div>
+<script src="~/js/site.js"></script>
+@await RenderSectionAsync("Scripts", false)
+
+<partial name="_validationScriptsPartial"/>
 </body>
 </html>

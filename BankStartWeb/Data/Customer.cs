@@ -13,13 +13,14 @@ public class Customer
     [MaxLength(30)] public string Country { get; set; }
     [MaxLength(2)] public string CountryCode { get; set; }
     [MaxLength(20)] public string NationalId { get; set; }
-    [Range(0, 9999)]
-    public int TelephoneCountryCode { get; set; }
+
+    [Range(0, 9999)] public int TelephoneCountryCode { get; set; }
+
     public string Telephone { get; set; }
-    [MaxLength(50)]
-    public string EmailAddress { get; set; }
+
+    [MaxLength(50)] public string EmailAddress { get; set; }
+
     public DateTime Birthday { get; set; }
 
-    public List<Account> Accounts { get; set; } = new List<Account>();
-
+    public List<Account> Accounts { get; set; } = new();
 }

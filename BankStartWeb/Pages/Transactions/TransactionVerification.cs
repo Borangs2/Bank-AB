@@ -1,12 +1,9 @@
-﻿using BankStartWeb.Data;
+﻿namespace Bank_AB.Pages.Transactions;
 
-namespace Bank_AB.Pages.Transactions
+public class TransactionVerification
 {
-    public class TransactionVerification
+    public static bool CheckForOvercharge(decimal amount, decimal balance)
     {
-        public static bool CheckForOvercharge(decimal amount, decimal balance)
-        {
-            return balance - amount <= 0;
-        }
+        return balance - amount <= 0;
     }
 }

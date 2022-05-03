@@ -4,11 +4,11 @@
 }
 <div class="customer-search">
     <form method="GET" class="searchForm">
-        <input class="searchInput" asp-for="SearchTerm" placeholder=" Sök..." autocomplete="off" />
+        <input class="searchInput" asp-for="SearchTerm" placeholder=" Sök..." autocomplete="off"/>
     </form>
 
     <form asp-page-handler="SearchById" class="searchForm">
-        <input class="searchInput" asp-for="SearchTermId" placeholder=" Sök med Id..." autocomplete="off" />
+        <input class="searchInput" asp-for="SearchTermId" placeholder=" Sök med Id..." autocomplete="off"/>
         <span asp-validation-for="SearchTermId" class="field-validation-error"></span>
     </form>
 </div>
@@ -16,63 +16,63 @@
 
 <table class="table">
     <thead>
-        <tr>
-            <th>
-                Förnamn
-                <a asp-page="/Customers/Customers" asp-route-col="Givenname" asp-route-order="asc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-pagenum="@Model.PageNum">
-                    <i class='bx bx-sort-a-z'></i>
-                </a>
-                <a asp-page="/Customers/Customers" asp-route-col="Givenname" asp-route-order="desc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-pagenum="@Model.PageNum">
-                    <i class='bx bx-sort-z-a'></i>
-                </a>
-            </th>
-            <th>
-                Efternamn
-                <a asp-page="/Customers/Customers" asp-route-col="Surname" asp-route-order="asc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-pagenum="@Model.PageNum">
-                    <i class='bx bx-sort-a-z'></i>
-                </a>
-                <a asp-page="/Customers/Customers" asp-route-col="Surname" asp-route-order="desc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-pagenum="@Model.PageNum">
-                    <i class='bx bx-sort-z-a'></i>
-                </a>
-            </th>
-            <th>
-                Land
-                <a asp-page="/Customers/Customers" asp-route-col="Country" asp-route-order="asc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-pagenum="@Model.PageNum">
-                    <i class='bx bx-sort-a-z'></i>
-                </a>
-                <a asp-page="/Customers/Customers" asp-route-col="Country" asp-route-order="desc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-pagenum="@Model.PageNum">
-                    <i class='bx bx-sort-z-a'></i>
-                </a>
-            </th>
-            <th>
-                Stad
-                <a asp-page="/Customers/Customers" asp-route-col="City" asp-route-order="asc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-pagenum="@Model.PageNum">
-                    <i class='bx bx-sort-a-z'></i>
-                </a>
-                <a asp-page="/Customers/Customers" asp-route-col="City" asp-route-order="desc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-pagenum="@Model.PageNum">
-                    <i class='bx bx-sort-z-a'></i>
-                </a>
-            </th>
-            <th>
-                TelefonNummer
-                <a asp-page="/Customers/Customers" asp-route-col="Telephone" asp-route-order="asc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-pagenum="@Model.PageNum">
-                    <i class='bx bx-sort-a-z'></i>
-                </a>
-                <a asp-page="/Customers/Customers" asp-route-col="Telephone" asp-route-order="desc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-pagenum="@Model.PageNum">
-                    <i class='bx bx-sort-z-a'></i>
-                </a>
-            </th>
-            <th>
-                Email
-                <a asp-page="/Customers/Customers" asp-route-col="EmailAddress" asp-route-order="asc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-pagenum="@Model.PageNum">
-                    <i class='bx bx-sort-a-z'></i>
-                </a>
-                <a asp-page="/Customers/Customers" asp-route-col="EmailAddress" asp-route-order="desc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-pagenum="@Model.PageNum">
-                    <i class='bx bx-sort-z-a'></i>
-                </a>
-            </th>
-            <th></th>
-        </tr>
+    <tr>
+        <th>
+            Förnamn
+            <a asp-page="/Customers/Customers" asp-route-col="Givenname" asp-route-order="asc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-pagenum="@Model.PageNum">
+                <i class="bx bx-sort-a-z"></i>
+            </a>
+            <a asp-page="/Customers/Customers" asp-route-col="Givenname" asp-route-order="desc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-pagenum="@Model.PageNum">
+                <i class="bx bx-sort-z-a"></i>
+            </a>
+        </th>
+        <th>
+            Efternamn
+            <a asp-page="/Customers/Customers" asp-route-col="Surname" asp-route-order="asc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-pagenum="@Model.PageNum">
+                <i class="bx bx-sort-a-z"></i>
+            </a>
+            <a asp-page="/Customers/Customers" asp-route-col="Surname" asp-route-order="desc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-pagenum="@Model.PageNum">
+                <i class="bx bx-sort-z-a"></i>
+            </a>
+        </th>
+        <th>
+            Land
+            <a asp-page="/Customers/Customers" asp-route-col="Country" asp-route-order="asc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-pagenum="@Model.PageNum">
+                <i class="bx bx-sort-a-z"></i>
+            </a>
+            <a asp-page="/Customers/Customers" asp-route-col="Country" asp-route-order="desc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-pagenum="@Model.PageNum">
+                <i class="bx bx-sort-z-a"></i>
+            </a>
+        </th>
+        <th>
+            Stad
+            <a asp-page="/Customers/Customers" asp-route-col="City" asp-route-order="asc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-pagenum="@Model.PageNum">
+                <i class="bx bx-sort-a-z"></i>
+            </a>
+            <a asp-page="/Customers/Customers" asp-route-col="City" asp-route-order="desc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-pagenum="@Model.PageNum">
+                <i class="bx bx-sort-z-a"></i>
+            </a>
+        </th>
+        <th>
+            TelefonNummer
+            <a asp-page="/Customers/Customers" asp-route-col="Telephone" asp-route-order="asc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-pagenum="@Model.PageNum">
+                <i class="bx bx-sort-a-z"></i>
+            </a>
+            <a asp-page="/Customers/Customers" asp-route-col="Telephone" asp-route-order="desc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-pagenum="@Model.PageNum">
+                <i class="bx bx-sort-z-a"></i>
+            </a>
+        </th>
+        <th>
+            Email
+            <a asp-page="/Customers/Customers" asp-route-col="EmailAddress" asp-route-order="asc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-pagenum="@Model.PageNum">
+                <i class="bx bx-sort-a-z"></i>
+            </a>
+            <a asp-page="/Customers/Customers" asp-route-col="EmailAddress" asp-route-order="desc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-pagenum="@Model.PageNum">
+                <i class="bx bx-sort-z-a"></i>
+            </a>
+        </th>
+        <th></th>
+    </tr>
     </thead>
     @foreach (var customer in Model.Customers)
     {
@@ -83,7 +83,9 @@
             <td>@customer.City</td>
             <td>@customer.Telephone</td>
             <td>@customer.EmailAddress</td>
-            <td><a class="view-customer-details-btn" asp-page="/Customers/CustomerDetails" asp-route-id="@customer.Id">View Accounts</a></td>
+            <td>
+                <a class="view-customer-details-btn" asp-page="/Customers/CustomerDetails" asp-route-id="@customer.Id">View Accounts</a>
+            </td>
         </tr>
     }
 
@@ -105,4 +107,3 @@
         }
     </div>
 </div>
-

@@ -1,53 +1,48 @@
-using System.Diagnostics.Contracts;
 using Bank_AB.Data;
 using Bank_AB.Services.Users;
-using BankStartWeb.Data;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Bank_AB.Pages.Admin
+namespace Bank_AB.Pages.Admin;
+
+public class ViewModel : PageModel
 {
-    public class ViewModel : PageModel
+    private readonly ApplicationDbContext _context;
+    private readonly IUserService _userService;
+
+    public ViewModel(ApplicationDbContext context, IUserService userService)
     {
-        private readonly ApplicationDbContext _context;
-        private readonly IUserService _userService;
+        _context = context;
+        _userService = userService;
+    }
 
-        public ViewModel(ApplicationDbContext context, IUserService userService)
+
+    public ViewUserViewModel ThisUser { get; set; }
+    public string[] Roles { get; set; }
+
+    public void OnGet(string userId)
+    {
+        var user = _userService.GetUserById(userId);
+
+        ThisUser = new ViewUserViewModel
         {
-            _context = context;
-            _userService = userService;
-        }
+            Id = user.Id,
+            UserName = user.UserName,
+            Email = user.Email,
+            PhoneNumber = user.PhoneNumber,
+            EmailConfirmed = user.EmailConfirmed,
+            TwoFA = user.TwoFactorEnabled,
+            Roles = _userService.GetUserRoles(userId).Result
+        };
+    }
 
-        public class ViewUserViewModel
-        {
-            public string Id { get; set; }
-            public string UserName { get; set; }
-            public string Email { get; set; }
-            public string PhoneNumber { get; set; }
-            public bool EmailConfirmed { get; set; }
-            public bool TwoFA { get; set; }
-            public string[] Roles { get; set; }
-        }
-
-
-        public ViewUserViewModel ThisUser { get; set; }
+    public class ViewUserViewModel
+    {
+        public string Id { get; set; }
+        public string UserName { get; set; }
+        public string Email { get; set; }
+        public string PhoneNumber { get; set; }
+        public bool EmailConfirmed { get; set; }
+        public bool TwoFA { get; set; }
         public string[] Roles { get; set; }
-
-        public void OnGet(string userId)
-        {
-            var user = _userService.GetUserById(userId);
-
-            ThisUser = new ViewUserViewModel
-            {
-                Id = user.Id,
-                UserName = user.UserName,
-                Email = user.Email,
-                PhoneNumber = user.PhoneNumber,
-                EmailConfirmed = user.EmailConfirmed,
-                TwoFA = user.TwoFactorEnabled,
-                Roles = _userService.GetUserRoles(userId).Result
-            };
-        }
     }
 }

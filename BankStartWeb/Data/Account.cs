@@ -1,19 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Bank_AB.Data
+namespace Bank_AB.Data;
+
+public class Account
 {
-
-    public class Account
-    {
-        public int Id { get; set; }
+    public int Id { get; set; }
 
 
-        [MaxLength(10)]
-        public string AccountType { get; set; } = null!;
+    [MaxLength(10)] public string AccountType { get; set; } = null!;
 
-        public DateTime Created { get; set; }
-        public decimal Balance { get; set; }
+    public DateTime Created { get; set; }
+    public decimal Balance { get; set; }
 
-        public List<Transaction> Transactions { get; set; } = new List<Transaction>();
-    }
+    public List<Transaction> Transactions { get; set; } = new();
 }

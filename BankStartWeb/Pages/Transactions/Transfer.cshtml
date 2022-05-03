@@ -11,20 +11,20 @@
         <h1>Insättning</h1>
     </div>
     <div class="card-body">
-            <form method="post">
-                <div class="form-group">
-                    <label asp-for="TransAccountId">Ange konto att överföra till:</label>
-                    <input class="form-control" asp-for="TransAccountId"></input>
-                    <span asp-validation-for="TransAccountId" class="field-validation-error"></span>
-                </div>
-                
-                <div class="form-group">
-                    <label asp-for="Amount">Ange Belopp</label>
-                    <input class="form-control" asp-for="Amount"/>
-                    <span asp-validation-for="Amount" class="field-validation-error"></span>
-                </div>
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="TransAccountId">Ange konto att överföra till:</label>
+                <input class="form-control" asp-for="TransAccountId"></input>
+                <span asp-validation-for="TransAccountId" class="field-validation-error"></span>
+            </div>
 
-                <button class="btn btn-outline-primary" type="submit">Slutför Överföring</button>
-            </form>
+            <div class="form-group">
+                <label asp-for="Amount">Ange Belopp</label>
+                <input class="form-control" asp-for="Amount"/>
+                <span asp-validation-for="Amount" class="field-validation-error"></span>
+            </div>
+
+            <button class="btn btn-outline-primary" type="submit">Slutför Överföring</button>
+        </form>
     </div>
 </div>
