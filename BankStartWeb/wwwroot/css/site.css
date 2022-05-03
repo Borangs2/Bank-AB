@@ -19,9 +19,16 @@ body {
 
 a { text-decoration: none; }
 
+tr:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.1)
+}
+
 .index-data-table { text-align: left; }
 
 .index-data-table td { padding: 10px; }
+.index-data-table tr:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0);
+}
 
 .tm-nav-item.active .bx { color: var(--colour-primary); }
 

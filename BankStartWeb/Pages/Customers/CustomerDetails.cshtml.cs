@@ -14,6 +14,7 @@ public class AccountsModel : PageModel
     private readonly ISearchService<Account> _searchService;
 
     public List<AccountsViewModel> Accounts = new();
+    public CustomerViewModel Customer { get; set; }
 
 
 
@@ -27,7 +28,6 @@ public class AccountsModel : PageModel
         _searchService = searchService;
     }
 
-    public Customer Customer { get; set; }
     public string AmountInAccounts { get; set; }
 
     [BindProperty(SupportsGet = true)]
@@ -44,20 +44,29 @@ public class AccountsModel : PageModel
 
     public void OnGet(int id, int pagenum = 1, string col = "Id", string order = "asc")
     {
-        Customer = _customerService.GetCustomerFromId(id);
+        var tempCust = _customerService.GetCustomerFromId(id);
+        Customer = new CustomerViewModel
+        {
+            Id = tempCust.Id,
+            Givenname = tempCust.Givenname,
+            Surname = tempCust.Surname,
+            Country = tempCust.Country,
+            City = tempCust.City,
+            Telephone = tempCust.Telephone,
+        };
 
         SortCol = col;
         SortOrder = order;
         PageNum = pagenum;
 
 
-        var acc = Customer.Accounts.AsQueryable();
+        var custAcc = tempCust.Accounts.AsQueryable();
 
 
-        if (!string.IsNullOrEmpty(SearchTerm)) acc = _searchService.Search(acc, SearchTerm);
+        if (!string.IsNullOrEmpty(SearchTerm)) custAcc = _searchService.Search(custAcc, SearchTerm);
 
 
-        var pageResult = acc.GetPaged(PageNum, 10);
+        var pageResult = custAcc.GetPaged(PageNum, 10);
 
 
         var paged = pageResult.Results.AsQueryable();
@@ -77,7 +86,18 @@ public class AccountsModel : PageModel
             })
             .ToList();
 
-        AmountInAccounts = Customer.Accounts.Sum(sum => sum.Balance).ToString("C");
+        AmountInAccounts = tempCust.Accounts.Sum(sum => sum.Balance).ToString("C");
+    }
+
+    public class CustomerViewModel
+    {
+        public int Id { get; set; }
+        public string Givenname { get; set; }
+        public string Surname { get; set; }
+        public string Country { get; set; }
+        public string City { get; set; }
+        public string Telephone { get; set; }
+        public List<Account> Accounts { get; set; }
     }
 
     public class AccountsViewModel
