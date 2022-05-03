@@ -1,51 +1,39 @@
 ﻿using Bank_AB.Data;
+using Bank_AB.Services.Accounts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bank_AB.Services.Accounts;
 
-namespace BankTests.Services.AccountServiceTests
+namespace BankTests.Services.Accounts;
+
+[TestClass]
+internal class AccountServiceTests
 {
-    [TestClass]
-    internal class AccountServiceTests
+    private readonly AccountService _accountService;
+    private readonly ApplicationDbContext _context;
+
+    public AccountServiceTests()
     {
-        private readonly ApplicationDbContext _context;
-        private readonly AccountService _accountService;
+        var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+            .UseInMemoryDatabase("Bank_AB")
+            .Options;
+        _context = new ApplicationDbContext(options);
 
-        public AccountServiceTests()
-        {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase("Bank_AB")
-                .Options;
-            _context = new ApplicationDbContext(options);
-
-            _accountService = new AccountService(_context);
-        }
+        _accountService = new AccountService(_context);
+    }
 
 
+    /*
+     * -------
+     * GENERAL
+     * -------
+     */
 
-        /*
-         * -------
-         * GENERAL
-         * -------
-         */
+    [TestMethod]
+    public void Get_account_from_id()
+    {
+    }
 
-        [TestMethod]
-        public void Get_account_from_id()
-        {
-
-        }
-
-        public void Get_account_from_invalid_id()
-        {
-
-        }
-
-
-
+    public void Get_account_from_invalid_id()
+    {
     }
 }
