@@ -1,12 +1,11 @@
+using Bank_AB.Data;
 using Bank_AB.Infrastructure.Paging;
 using Bank_AB.Services.Search;
-using BankStartWeb.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.ComponentModel.DataAnnotations;
 
-namespace BankStartWeb.Pages.Customers
+namespace Bank_AB.Pages.Customers
 {
     [Authorize(Roles = "Administratör, Kassör")]
     public class CustomersModel : PageModel

@@ -1,8 +1,7 @@
-﻿using BankStartWeb.Data;
-using Microsoft.AspNetCore.Mvc;
+﻿using Bank_AB.Data;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace BankStartWeb.Pages
+namespace Bank_AB.Pages
 {
     public class IndexModel : PageModel
     {

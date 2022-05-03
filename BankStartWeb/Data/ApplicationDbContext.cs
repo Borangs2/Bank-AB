@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace BankStartWeb.Data
+namespace Bank_AB.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {

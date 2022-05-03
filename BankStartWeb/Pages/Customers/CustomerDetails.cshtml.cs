@@ -1,12 +1,11 @@
+using Bank_AB.Data;
 using Bank_AB.Infrastructure.Paging;
 using Bank_AB.Services;
 using Bank_AB.Services.Search;
-using BankStartWeb.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 
-namespace BankStartWeb.Pages.Customers
+namespace Bank_AB.Pages.Customers
 {
     public class AccountsModel : PageModel
     {

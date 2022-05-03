@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BankStartWeb.Data;
+namespace Bank_AB.Data;
 
 public class Customer
 {

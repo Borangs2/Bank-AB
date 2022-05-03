@@ -1,44 +1,40 @@
-﻿
-
+﻿using Bank_AB.Data;
+using Bank_AB.Services.Accounts;
 using Bank_AB.Services.Transactions;
-using Bank_AB.Services;
-using BankStartWeb.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace BankTests.Services.Transactions
+
+
+namespace BankTests.Services.Transactions;
+
+public class FakeAccountService : IAccountService
 {
-    public class FakeAccountService : IAccountService
+    public bool GetFlag;
+
+    public Account GetAccountFromId(int id)
     {
-        public bool GetFlag = false;
-        public Account GetAccountFromId(int id)
-        {
-            GetFlag = true;
-            return new Account();
-        }
+        GetFlag = true;
+        return new Account();
     }
+}
 
+[TestClass]
+internal class TransactionsServiceTests
+{
+    private readonly AccountService _accountService;
+    private readonly ApplicationDbContext _context;
+    private readonly TransactionsService _sut; //System under test
 
-
-
-    [TestClass]
-    internal class TransactionsServiceTests
+    public TransactionsServiceTests()
     {
-        private readonly TransactionsService _sut; //System under test
-        private readonly ApplicationDbContext _context;
-        private readonly AccountService _accountService;
+        var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+            .UseInMemoryDatabase("Bank_AB")
+            .Options;
+        _context = new ApplicationDbContext(options);
 
-        public TransactionsServiceTests()
-        {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase("Bank_AB")
-                .Options;
-            _context = new ApplicationDbContext(options);
+        _accountService = new AccountService(_context);
 
-            _accountService = new AccountService(_context);
-
-            _sut = new TransactionsService(_context, _accountService);
-
-        }
+        _sut = new TransactionsService(_context, _accountService);
     }
 }

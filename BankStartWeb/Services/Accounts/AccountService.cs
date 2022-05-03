@@ -1,7 +1,7 @@
-﻿using BankStartWeb.Data;
+﻿using Bank_AB.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Bank_AB.Services
+namespace Bank_AB.Services.Accounts
 {
     public class AccountService : IAccountService
     {
