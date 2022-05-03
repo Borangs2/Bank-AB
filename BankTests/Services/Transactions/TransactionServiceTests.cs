@@ -37,4 +37,78 @@ internal class TransactionsServiceTests
 
         _sut = new TransactionsService(_context, _accountService);
     }
+
+
+    /*
+     * -------
+     * DEPOSIT
+     * -------
+     */
+
+
+    [TestMethod]
+    public void Deposit_amount_cannot_be_negative()
+    {
+
+    }
+
+    [TestMethod]
+    public void Deposit_amount_cannot_be_to_large()
+    {
+
+    }
+
+    /*
+     * --------
+     * WITHDRAW
+     * --------
+     */
+
+    [TestMethod]
+    public void Withdraw_amount_cannot_be_negative()
+    {
+
+    }
+
+    [TestMethod]
+    public void Withdraw_amount_cannot_be_to_large()
+    {
+
+    }
+
+    [TestMethod]
+    public void Cannot_withdraw_more_then_on_account()
+    {
+
+    }
+
+    /*
+     * --------
+     * TRANSFER
+     * --------
+     */
+
+    [TestMethod]
+    public void Transfer_amount_cannot_be_negative()
+    {
+
+    }
+
+    [TestMethod]
+    public void Cannot_Transfer_more_then_on_account()
+    {
+
+    }
+
+    [TestMethod]
+    public void Cannot_Transfer_to_unexisting_account()
+    {
+
+    }
+
+    [TestMethod]
+    public void Transfer_amount_cannot_be_to_large()
+    {
+
+    }
 }
