@@ -21,9 +21,11 @@ public class CustomersModel : PageModel
 
     public List<CustomerViewModel> Customers { get; set; }
 
-    [BindProperty(SupportsGet = true)] public string SearchTerm { get; set; }
+    [BindProperty(SupportsGet = true)] 
+    public string SearchTerm { get; set; }
 
-    [BindProperty(SupportsGet = true)] public string? SearchTermId { get; set; }
+    [BindProperty(SupportsGet = true)] 
+    public string? SearchTermId { get; set; }
 
     public int PageNum { get; set; }
     public string SortOrder { get; set; }

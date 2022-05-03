@@ -15,6 +15,9 @@ public class AccountsModel : PageModel
 
     public List<AccountsViewModel> Accounts = new();
 
+
+
+
     public AccountsModel(ApplicationDbContext context,
         ICustomerService customerService,
         ISearchService<Account> searchService)
@@ -31,7 +34,8 @@ public class AccountsModel : PageModel
     [HiddenInput]
     public string Id { get; set; }
 
-    [BindProperty(SupportsGet = true)] public string SearchTerm { get; set; }
+    [BindProperty(SupportsGet = true)] 
+    public string SearchTerm { get; set; }
 
     public int PageNum { get; set; }
     public string SortOrder { get; set; }
