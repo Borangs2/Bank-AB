@@ -19,8 +19,4 @@
 		<ProjectReference Include="..\BankStartWeb\Bank AB.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-		<Folder Include="Services\Customers\" />
-	</ItemGroup>
-
 </Project>
