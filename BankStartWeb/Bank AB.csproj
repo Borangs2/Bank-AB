@@ -8,14 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="wwwroot\css\templatemo-xtra-blog.css" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="wwwroot\css\templatemo-xtra-blog.css" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Bogus" Version="34.0.1" />
     <PackageReference Include="Faker.Net" Version="2.0.154" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.3" />

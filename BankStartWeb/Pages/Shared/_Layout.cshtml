@@ -10,34 +10,33 @@
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet"> <!-- https://fonts.google.com/ -->
     <link href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="~/css/templatemo-xtra-blog.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
 
 </head>
 <body>
-<header class="tm-header" id="tm-header">
-    <div class="tm-header-wrapper">
+<header class="header" id="tm-header">
+    <div class="header-wrapper">
         <button class="navbar-toggler" type="button" aria-label="Toggle navigation" id="navbar-toggler">
             <i class="bx bx-menu"></i>
         </button>
-        <div class="tm-site-header">
-            <div class="mb-3 mx-auto tm-site-logo">
+        <div class="header-logo-container">
+            <div class="mb-3 mx-auto header-logo">
                 <i class="bx bxs-bank"></i>
             </div>
             <h1 class="text-center">Bank AB</h1>
         </div>
-        <nav class="tm-nav" id="tm-nav">
+        <nav class="navbar" id="tm-nav">
             <ul>
-                <li class="tm-nav-item" id="homeBtn">
-                    <a asp-page="/Index" class="tm-nav-link">
+                <li class="nav-item" id="homeBtn">
+                    <a asp-page="/Index" class="nav-link">
                         <i class="bx bxs-home"></i>
                         Hem
                     </a>
                 </li>
                 @if (SignInManager.IsSignedIn(User))
                 {
-                    <li class="tm-nav-item" id="custBtn">
-                        <a asp-page="/Customers/Customers" class="tm-nav-link">
+                    <li class="nav-item" id="custBtn">
+                        <a asp-page="/Customers/Customers" class="nav-link">
                             <i class='bx bxs-group'></i>
                             Kunder
                         </a>
@@ -45,8 +44,8 @@
                 }
                 @if (SignInManager.IsSignedIn(User) && User.IsInRole("Administratör"))
                 {
-                    <li class="tm-nav-item" id="adminBtn">
-                        <a asp-page="/Admin/Index" class="tm-nav-link">
+                    <li class="nav-item" id="adminBtn">
+                        <a asp-page="/Admin/Index" class="nav-link">
                             <i class="bx bxs-group"></i>
                             Admin
                         </a>
@@ -61,7 +60,7 @@
     </div>
 </header>
 <div class="container-fluid">
-    <main class="tm-main">
+    <main class="main">
         @RenderBody()
         <footer class="row tm-row">
             <hr class="col-12">

@@ -5,12 +5,14 @@
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
-        <li class="nav-item">
-            <a class="nav-link text-white h5 text-center" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Välkommen @User.Identity?.Name!</a>
+        <li>
+            <h5 class=" text-white h5 text-center" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+                Välkommen @User.Identity?.Name!
+            </h5>
         </li>
-        <li class="tm-nav-item">
+        <li class="nav-item">
             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new {area = ""})" method="post">
-                <button type="submit" class="tm-nav-link logout-btn">
+                <button type="submit" class="nav-link logout-btn">
                     <i class='bx bxs-user-x'></i>
                     Logout
                 </button>
@@ -19,8 +21,8 @@
     }
     else
     {
-        <li class="tm-nav-item" id="loginBtn">
-            <a asp-area="Identity" asp-page="/Account/Login" class="tm-nav-link">
+        <li class="nav-item" id="loginBtn">
+            <a asp-area="Identity" asp-page="/Account/Login" class="nav-link">
                 <i class='bx bxs-user'></i>
                 Login
             </a>
