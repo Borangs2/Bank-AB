@@ -1,10 +1,11 @@
 using Bank_AB.Data;
 using Bank_AB.Services.Users;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Bank_AB.Pages.Admin;
-
+[Authorize(Roles = "Administratör")]
 public class IndexModel : PageModel
 {
     public readonly ApplicationDbContext _context;
