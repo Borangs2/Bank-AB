@@ -16,4 +16,9 @@ public class CustomerService : ICustomerService
     {
         return _context.Customers.Include(c => c.Accounts).First(cust => cust.Id == id);
     }
+
+    public List<Account> GetAccounts(int id)
+    {
+        return GetCustomerFromId(id).Accounts;
+    }
 }
