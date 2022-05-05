@@ -1,7 +1,7 @@
 ﻿using Bank_AB.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Bank_AB.Services;
+namespace Bank_AB.Services.Customers;
 
 public class CustomerService : ICustomerService
 {
