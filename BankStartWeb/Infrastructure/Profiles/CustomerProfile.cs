@@ -8,7 +8,17 @@ namespace Bank_AB.Infrastructure.Profiles
     {
         public CustomerProfile()
         {
-            CreateMap<Customer, CustomerViewModel>();
+            CreateMap<Customer, CustomerViewModel>().ReverseMap();
+            CreateMap<Tuple<CustomerViewModel?, List<AccountViewModel>>, ApiCustomerViewModel>()
+                .ForMember(c => c.Id, opt => opt.MapFrom(t => t.Item1.Id))
+                .ForMember(c => c.Givenname, opt => opt.MapFrom(t => t.Item1.Givenname))
+                .ForMember(c => c.Surname, opt => opt.MapFrom(t => t.Item1.Surname))
+                .ForMember(c => c.Country, opt => opt.MapFrom(t => t.Item1.Country))
+                .ForMember(c => c.City, opt => opt.MapFrom(t => t.Item1.City))
+                .ForMember(c => c.Telephone, opt => opt.MapFrom(t => t.Item1.Telephone))
+                .ForMember(c => c.EmailAddress, opt => opt.MapFrom(t => t.Item1.EmailAddress))
+                .ForMember(c => c.Accounts, opt => opt.MapFrom(t => t.Item2))
+                .ReverseMap();
         }
     }
 }
