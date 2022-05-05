@@ -1,4 +1,5 @@
 using Bank_AB.Data;
+using Bank_AB.Infrastructure.Profiles;
 using Bank_AB.Services.Customers;
 using Bank_AB.Services.Accounts;
 using Bank_AB.Services.Search;
@@ -28,7 +29,6 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
-
 builder.Services.AddRazorPages();
 builder.Services.AddTransient<DataInitializer>();
 builder.Services.AddTransient<ICustomerService, CustomerService>();
@@ -38,6 +38,10 @@ builder.Services.AddTransient<ISearchService<Account>, AccountSearchService>();
 builder.Services.AddTransient<ISearchService<Transaction>, TransactionSearchService>();
 builder.Services.AddTransient<ITransactionsService, TransactionsService>();
 builder.Services.AddTransient<IUserService, UserService>();
+
+builder.Services.AddAutoMapper(typeof(CustomerProfile));
+builder.Services.AddAutoMapper(typeof(IdentityUser));
+
 
 
 var app = builder.Build();

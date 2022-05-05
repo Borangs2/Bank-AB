@@ -1,5 +1,7 @@
 using System.ComponentModel.DataAnnotations;
+using AutoMapper;
 using Bank_AB.Services.Users;
+using Bank_AB.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -9,45 +11,30 @@ namespace Bank_AB.Pages.Admin;
 public class EditModel : PageModel
 {
     private readonly IUserService _userService;
+    private readonly IMapper _mapper;
 
 
-    public EditModel(IUserService userService)
+    public EditModel(IUserService userService, IMapper mapper)
     {
         _userService = userService;
+        _mapper = mapper;
     }
-
-    [BindProperty]
-    [Required(ErrorMessage = "Namn behöver vara fyllt")]
-    public string Name { get; set; }
-
-    [Required(ErrorMessage = "Email behöver vara fyllt")]
-    [BindProperty]
-    [EmailAddress(ErrorMessage = "Detta är inte en giltig email address")]
-    public string Email { get; set; }
-
-    [BindProperty] public string? PhoneNumber { get; set; }
-
-    [BindProperty] public bool EmailConfirmed { get; set; }
-
-    [BindProperty] public bool TwoFA { get; set; }
 
     [BindProperty] public bool IsCashier { get; set; }
 
     [BindProperty] public bool IsAdmin { get; set; }
 
-
-    public IdentityUser ThisUser { get; set; }
+    [BindProperty]
+    public IdentityUserEditViewModel ThisUser { get; set; }
 
 
     public void OnGet(string id)
     {
         GetRoles(id);
-        ThisUser = _userService.GetUserById(id);
-        Name = ThisUser.UserName;
-        Email = ThisUser.Email;
-        PhoneNumber = ThisUser.PhoneNumber;
-        EmailConfirmed = ThisUser.EmailConfirmed;
-        TwoFA = ThisUser.TwoFactorEnabled;
+        var tempUser = _userService.GetUserById(id);
+
+        //AutoMapper
+        ThisUser = _mapper.Map(tempUser, ThisUser);
     }
 
     public string[] GetRoles(string id)
@@ -64,14 +51,10 @@ public class EditModel : PageModel
     {
         if (ModelState.IsValid)
         {
-            var user = _userService.GetUserById(id);
+            var user = _userService.GetUserById(ThisUser.Id);
 
-
-            user.UserName = Name;
-            user.Email = Email;
-            user.PhoneNumber = PhoneNumber;
-            user.EmailConfirmed = EmailConfirmed;
-            user.TwoFactorEnabled = TwoFA;
+            //AutoMapper
+            user = _mapper.Map(ThisUser, user);
 
             var roles = new List<string>();
 
@@ -83,14 +66,14 @@ public class EditModel : PageModel
             var result = _userService.UpdateUser(user, roles.ToArray());
 
             if (result == IUserService.ReturnCode.UsernameAlreadyInUse)
-                ModelState.AddModelError(nameof(Name), "Användarnamnet används redan");
+                ModelState.AddModelError(nameof(ThisUser.UserName), "Användarnamnet används redan");
             if (result == IUserService.ReturnCode.EmailAlreadyInUse)
-                ModelState.AddModelError(nameof(Email), "Email adressen används redan");
+                ModelState.AddModelError(nameof(ThisUser.Email), "Email adressen används redan");
 
             //Kolla Modelstate en sista gång
             if (ModelState.IsValid)
 
-                return RedirectToPage("ViewUser", new {userid = id});
+                return RedirectToPage("ViewUser", new {userid = ThisUser.Id});
         }
 
         return Page();

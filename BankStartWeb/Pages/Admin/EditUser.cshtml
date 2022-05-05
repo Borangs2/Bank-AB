@@ -10,32 +10,36 @@
     </div>
     <div class="card-body">
         <form method="post">
+            
+            
+            <input asp-for="ThisUser.Id" value="@Model.ThisUser.Id"/>
+
             <div class="form-group">
-                <label asp-for="Name">Namn: </label>
-                <input class="form-control" asp-for="Name"/>
-                <span asp-validation-for="Name" class="field-validation-error"></span>
+                <label asp-for="ThisUser.UserName">Namn: </label>
+                <input class="form-control" asp-for="ThisUser.UserName"/>
+                <span asp-validation-for="ThisUser.UserName" class="field-validation-error"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Email">Email: </label>
-                <input class="form-control" asp-for="Email"/>
-                <span asp-validation-for="Email" class="field-validation-error"></span>
+                <label asp-for="ThisUser.Email">Email: </label>
+                <input class="form-control" asp-for="ThisUser.Email"/>
+                <span asp-validation-for="ThisUser.Email" class="field-validation-error"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PhoneNumber">Telefonnummer: </label>
-                <input class="form-control" asp-for="PhoneNumber"/>
-                <span asp-validation-for="PhoneNumber" class="field-validation-error"></span>
+                <label asp-for="ThisUser.PhoneNumber">Telefonnummer: </label>
+                <input class="form-control" asp-for="ThisUser.PhoneNumber"/>
+                <span asp-validation-for="ThisUser.PhoneNumber" class="field-validation-error"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="EmailConfirmed">Validerat Email: </label>
-                <input class="checkbox" asp-for="EmailConfirmed"/>
-                <span asp-validation-for="EmailConfirmed" class="field-validation-error"></span>
+                <label asp-for="ThisUser.EmailConfirmed">Validerat Email: </label>
+                <input class="checkbox" asp-for="ThisUser.EmailConfirmed"/>
+                <span asp-validation-for="ThisUser.EmailConfirmed" class="field-validation-error"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="TwoFA">Tvåfaktorsautentisering: </label>
-                <input class="checkbox" asp-for="TwoFA"/>
-                <span asp-validation-for="TwoFA" class="field-validation-error"></span>
+                <label asp-for="ThisUser.TwoFA">Tvåfaktorsautentisering: </label>
+                <input class="checkbox" asp-for="ThisUser.TwoFA"/>
+                <span asp-validation-for="ThisUser.TwoFA" class="field-validation-error"></span>
             </div>
 
             <div class="border-info">
