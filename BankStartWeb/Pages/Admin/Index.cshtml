@@ -21,7 +21,7 @@
             <td>@user.UserName</td>
             <td>@user.Email</td>
             <td>
-                @foreach (var role in Model._userService.GetUserRoles(user.Id).Result)
+                @foreach (var role in user.Roles)
                 {
                     @role
                     <text>&nbsp;&nbsp;</text>

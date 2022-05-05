@@ -1,6 +1,9 @@
+using AutoMapper;
 using Bank_AB.Data;
 using Bank_AB.Infrastructure.Paging;
 using Bank_AB.Services.Search;
+using Bank_AB.ViewModels;
+using Bank_AB.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -8,15 +11,17 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace Bank_AB.Pages.Customers;
 
 [Authorize(Roles = "Administratör, Kassör")]
-public class CustomersModel : PageModel
+public partial class CustomersModel : PageModel
 {
     private readonly ApplicationDbContext _context;
     private readonly ISearchService<Customer> _searchService;
+    private readonly IMapper _mapper;
 
-    public CustomersModel(ApplicationDbContext context, ISearchService<Customer> searchService)
+    public CustomersModel(ApplicationDbContext context, ISearchService<Customer> searchService, IMapper mapper)
     {
         _context = context;
         _searchService = searchService;
+        _mapper = mapper;
     }
 
     public List<CustomerViewModel> Customers { get; set; }
@@ -83,16 +88,5 @@ public class CustomersModel : PageModel
 
         OnGet();
         return Page();
-    }
-
-    public class CustomerViewModel
-    {
-        public int Id { get; set; }
-        public string Givenname { get; set; } = null!;
-        public string Surname { get; set; } = null!;
-        public string Country { get; set; } = null!;
-        public string Telephone { get; set; } = null!;
-        public string EmailAddress { get; set; } = null!;
-        public string City { get; set; } = null!;
     }
 }

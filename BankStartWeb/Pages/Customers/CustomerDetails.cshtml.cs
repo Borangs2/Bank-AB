@@ -2,6 +2,7 @@ using Bank_AB.Data;
 using Bank_AB.Infrastructure.Paging;
 using Bank_AB.Services.Customers;
 using Bank_AB.Services.Search;
+using Bank_AB.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -13,7 +14,7 @@ public class AccountsModel : PageModel
     private readonly ICustomerService _customerService;
     private readonly ISearchService<Account> _searchService;
 
-    public List<AccountsViewModel> Accounts = new();
+    public List<AccountViewModel> Accounts = new();
     public CustomerViewModel Customer { get; set; }
 
 
@@ -77,7 +78,7 @@ public class AccountsModel : PageModel
         TotalPageCount = pageResult.PageCount;
 
 
-        Accounts = pageResult.Results.Select(acc => new AccountsViewModel
+        Accounts = pageResult.Results.Select(acc => new AccountViewModel
             {
                 Id = acc.Id,
                 AccountType = acc.AccountType,
@@ -87,25 +88,5 @@ public class AccountsModel : PageModel
             .ToList();
 
         AmountInAccounts = tempCust.Accounts.Sum(sum => sum.Balance).ToString("C");
-    }
-
-    public class CustomerViewModel
-    {
-        public int Id { get; set; }
-        public string Givenname { get; set; }
-        public string Surname { get; set; }
-        public string Country { get; set; }
-        public string City { get; set; }
-        public string Telephone { get; set; }
-        public List<Account> Accounts { get; set; }
-    }
-
-    public class AccountsViewModel
-    {
-        public int Id { get; set; }
-        public string AccountType { get; set; } = null!;
-
-        public DateTime Created { get; set; }
-        public decimal Balance { get; set; }
     }
 }

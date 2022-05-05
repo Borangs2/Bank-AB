@@ -2,6 +2,7 @@ using Bank_AB.Data;
 using Bank_AB.Infrastructure.Paging;
 using Bank_AB.Services.Accounts;
 using Bank_AB.Services.Search;
+using Bank_AB.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -65,7 +66,6 @@ public class TransactionsModel : PageModel
 
         var pageResult = query.GetPaged(pageNum, 10);
 
-
         Transactions = pageResult.Results.Select(trans => new TransactionViewModel
             {
                 Id = trans.Id,
@@ -80,12 +80,4 @@ public class TransactionsModel : PageModel
         ;
     }
 
-    public class TransactionViewModel
-    {
-        public int Id { get; set; }
-        public string Operation { get; set; } = null!;
-        public DateTime Date { get; set; }
-        public decimal Amount { get; set; }
-        public decimal NewBalance { get; set; }
-    }
 }

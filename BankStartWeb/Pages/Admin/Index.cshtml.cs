@@ -1,5 +1,6 @@
 using Bank_AB.Data;
 using Bank_AB.Services.Users;
+using Bank_AB.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -17,7 +18,7 @@ public class IndexModel : PageModel
         _context = context;
     }
 
-    public List<IdentityUser> AllUsers { get; set; }
+    public List<IdentityUserViewModel> AllUsers { get; set; }
 
     public void OnGet()
     {
@@ -26,6 +27,13 @@ public class IndexModel : PageModel
 
     public void GetAllUsers()
     {
-        AllUsers = _context.Users.ToList();
+        AllUsers = _context.Users.Select(u => new IdentityUserViewModel
+        {
+            Id = u.Id,
+            UserName = u.UserName,
+            Email = u.Email,
+            Roles = _userService.GetUserRoles(u.Id).Result.ToList(),
+        })
+            .ToList();
     }
 }
