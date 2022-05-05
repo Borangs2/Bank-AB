@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bank AB", "BankStartWeb\Ban
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankTests", "BankTests\BankTests.csproj", "{07967472-AB2D-4783-BBF0-CF2DD14EB357}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankAPI", "BankAPI\BankAPI.csproj", "{40FFAF8E-8BFD-4CF7-B940-1C7DD8D1ECD2}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{07967472-AB2D-4783-BBF0-CF2DD14EB357}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07967472-AB2D-4783-BBF0-CF2DD14EB357}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07967472-AB2D-4783-BBF0-CF2DD14EB357}.Release|Any CPU.Build.0 = Release|Any CPU
-		{40FFAF8E-8BFD-4CF7-B940-1C7DD8D1ECD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{40FFAF8E-8BFD-4CF7-B940-1C7DD8D1ECD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{40FFAF8E-8BFD-4CF7-B940-1C7DD8D1ECD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{40FFAF8E-8BFD-4CF7-B940-1C7DD8D1ECD2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
