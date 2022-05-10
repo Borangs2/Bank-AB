@@ -56,16 +56,8 @@ public partial class CustomersModel : PageModel
 
         TotalPageCount = pageResult.PageCount;
 
-        Customers = pageResult.Results.Select(cust => new CustomerViewModel
-        {
-            Id = cust.Id,
-            Givenname = cust.Givenname,
-            Surname = cust.Surname,
-            Country = cust.Country,
-            Telephone = cust.Telephone,
-            EmailAddress = cust.EmailAddress,
-            City = cust.City
-        }).ToList();
+        Customers = pageResult.Results.Select(cust => _mapper.Map(cust, new CustomerViewModel()))
+            .ToList();
     }
 
     public IActionResult OnPostSearchById()

@@ -1,3 +1,4 @@
+using AutoMapper;
 using Bank_AB.Data;
 using Bank_AB.Infrastructure.Paging;
 using Bank_AB.Services.Accounts;
@@ -14,15 +15,18 @@ public class TransactionsModel : PageModel
 
     private readonly ApplicationDbContext _context;
     private readonly ISearchService<Transaction> _searchService;
+    private readonly IMapper _mapper;
     public List<TransactionViewModel> Transactions = new();
 
     public TransactionsModel(ApplicationDbContext context,
         IAccountService accountService,
-        ISearchService<Transaction> searchService)
+        ISearchService<Transaction> searchService,
+        IMapper mapper)
     {
         _context = context;
         _accountService = accountService;
         _searchService = searchService;
+        _mapper = mapper;
     }
 
     public int CustomerId { get; set; }
@@ -66,14 +70,7 @@ public class TransactionsModel : PageModel
 
         var pageResult = query.GetPaged(pageNum, 10);
 
-        Transactions = pageResult.Results.Select(trans => new TransactionViewModel
-            {
-                Id = trans.Id,
-                Operation = trans.Operation,
-                Date = trans.Date,
-                Amount = trans.Amount,
-                NewBalance = trans.NewBalance
-            })
+        Transactions = pageResult.Results.Select(trans => _mapper.Map(trans, new TransactionViewModel()))
             .ToList();
 
         return new JsonResult(new {items = Transactions});

@@ -1,3 +1,4 @@
+using AutoMapper;
 using Bank_AB.Data;
 using Bank_AB.Infrastructure.Paging;
 using Bank_AB.Services.Customers;
@@ -10,9 +11,9 @@ namespace Bank_AB.Pages.Customers;
 
 public class AccountsModel : PageModel
 {
-    private readonly ApplicationDbContext _context;
     private readonly ICustomerService _customerService;
     private readonly ISearchService<Account> _searchService;
+    private readonly IMapper _mapper;
 
     public List<AccountViewModel> Accounts = new();
     public CustomerViewModel Customer { get; set; }
@@ -20,13 +21,11 @@ public class AccountsModel : PageModel
 
 
 
-    public AccountsModel(ApplicationDbContext context,
-        ICustomerService customerService,
-        ISearchService<Account> searchService)
+    public AccountsModel(ICustomerService customerService, ISearchService<Account> searchService, IMapper mapper)
     {
-        _context = context;
         _customerService = customerService;
         _searchService = searchService;
+        _mapper = mapper;
     }
 
     public string AmountInAccounts { get; set; }
@@ -78,13 +77,7 @@ public class AccountsModel : PageModel
         TotalPageCount = pageResult.PageCount;
 
 
-        Accounts = pageResult.Results.Select(acc => new AccountViewModel
-            {
-                Id = acc.Id,
-                AccountType = acc.AccountType,
-                Balance = acc.Balance,
-                Created = acc.Created
-            })
+        Accounts = pageResult.Results.Select(acc => _mapper.Map(acc, new AccountViewModel()))
             .ToList();
 
         AmountInAccounts = tempCust.Accounts.Sum(sum => sum.Balance).ToString("C");

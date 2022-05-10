@@ -11,12 +11,10 @@ namespace Bank_AB.Pages.Transactions;
 [BindProperties]
 public class WithdrawModel : PageModel
 {
-    private readonly ApplicationDbContext _context;
     private readonly ITransactionsService _transactionsService;
 
-    public WithdrawModel(ApplicationDbContext context, ITransactionsService transactionsService)
+    public WithdrawModel(ITransactionsService transactionsService)
     {
-        _context = context;
         _transactionsService = transactionsService;
     }
 

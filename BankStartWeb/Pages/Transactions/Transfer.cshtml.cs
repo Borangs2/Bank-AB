@@ -10,12 +10,10 @@ namespace Bank_AB.Pages.Transactions;
 [BindProperties]
 public class TransferModel : PageModel
 {
-    private readonly ApplicationDbContext _context;
     private readonly ITransactionsService _transactionsService;
 
     public TransferModel(ApplicationDbContext context, ITransactionsService transactionsService)
     {
-        _context = context;
         _transactionsService = transactionsService;
     }
 

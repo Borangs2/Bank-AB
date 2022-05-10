@@ -11,12 +11,10 @@ namespace Bank_AB.Pages.Transactions;
 [BindProperties]
 public class DepositModel : PageModel
 {
-    private readonly ApplicationDbContext _context;
     private readonly ITransactionsService _transactionService;
 
-    public DepositModel(ApplicationDbContext context, ITransactionsService transactionsService)
+    public DepositModel(ITransactionsService transactionsService)
     {
-        _context = context;
         _transactionService = transactionsService;
     }
 
