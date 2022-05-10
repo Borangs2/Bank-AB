@@ -67,42 +67,11 @@
     </tr>
     </thead>
     <tbody id="posts-table">
-    @*@foreach (var trans in Model.Transactions)
-            {
-            <tr>
-            <td>@trans.Id</td>
-            <td>@trans.Operation</td>
-            <td>@trans.Date</td>
-            <td>@trans.Amount</td>
-            <td>@trans.NewBalance</td>
-
-            </tr>
-            }*@
+   
     </tbody>
 </table>
 
 <a class="btn btn-outline-info" href="javascript:fetchMore()">Visa fler</a>
-
-@*@if (Model.TotalPageCount != 1)
-{
-    <div class="paging">
-        <div class="paging-btn-container">
-            @if (Model.PageNum != 1)
-            {
-                <a class="paging-btn" asp-page="/Customers/AccountDetails" asp-route-id="@Model.Id" asp-route-pagenum="@(Model.PageNum - 1)" asp-route-SearchTerm="@Model.SearchTerm" asp-route-SortOrder="@Model.SortOrder" , asp-route-SortCol="@Model.SortCol">Föregående</a>
-            }
-        </div>
-        <div>
-            <h4>Sida @Model.PageNum av @Model.TotalPageCount</h4>
-        </div>
-        <div class="paging-btn-container">
-            @if (Model.PageNum != Model.TotalPageCount)
-            {
-                <a class="paging-btn" asp-page="/Customers/AccountDetails" asp-route-id="@Model.Id" asp-route-pagenum="@(Model.PageNum + 1)" asp-route-SearchTerm="@Model.SearchTerm" asp-route-SortOrder="@Model.SortOrder" , asp-route-SortCol="@Model.SortCol">Nästa</a>
-            }
-        </div>
-    </div>
-}*@
 
 <div class="transaction-btn-container">
     <a class="transaction-btn" asp-page="/Transactions/Deposit" asp-route-accountId="@Model.Account.Id">Skapa insättning</a>
@@ -127,20 +96,6 @@
                 );
         }
 
-        /*
-         *
-                 lastPage = 0;
-                function fetchMore() {
-                    fetch("View?handler=FetchMore&lastPage=" + lastPage + "&personId=@Model.Id")
-                        .then((response) => response.json())
-                        .then((json) => {
-                                lastPage = lastPage + 1;
-                                json.items.forEach(tableElements);
-                            }
-                        );
-                }
-         *
-         */
         function tableElements(element) {
             document.getElementById('posts-table').innerHTML +=
                 `<tr>
