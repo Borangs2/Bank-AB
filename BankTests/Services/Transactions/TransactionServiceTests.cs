@@ -94,6 +94,13 @@ public class TransactionsServiceTests
         Assert.AreEqual(result, ITransactionsService.ReturnCode.BalanceToLow);
     }
 
+    [TestMethod]
+    public void Withdraw_from_account_Ok()
+    {
+        var result = _sut.Withdraw(1, 50, "", "");
+        Assert.AreEqual(result, ITransactionsService.ReturnCode.Ok);
+    }
+
     /*
      * --------
      * TRANSFER
@@ -127,5 +134,12 @@ public class TransactionsServiceTests
     {
         var result = _sut.Transfer(1, -1, 10);
         Assert.AreEqual(result, ITransactionsService.ReturnCode.NotFound);
+    }
+
+    [TestMethod]
+    public void Transfer_from_account_Ok()
+    {
+        var result = _sut.Transfer(1, 2, 50);
+        Assert.AreEqual(result, ITransactionsService.ReturnCode.Ok);
     }
 }
