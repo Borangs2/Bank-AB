@@ -12,9 +12,9 @@ public class CustomerService : ICustomerService
         _context = context;
     }
 
-    public Customer GetCustomerFromId(int id)
+    public Customer? GetCustomerFromId(int id)
     {
-        return _context.Customers.Include(c => c.Accounts).First(cust => cust.Id == id);
+        return _context.Customers.Include(c => c.Accounts).FirstOrDefault(cust => cust.Id == id);
     }
 
     public List<Account> GetAccounts(int id)
