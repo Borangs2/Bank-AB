@@ -16,7 +16,7 @@
         <td>@Model.ThisUser.Email</td>
     </tr>
     <tr>
-        <td>Confirmed email:</td>
+        <td>Validerat email:</td>
         <td>
             @if (Model.ThisUser.EmailConfirmed)
             {
@@ -29,7 +29,7 @@
         </td>
     </tr>
     <tr>
-        <td>Phone number: </td>
+        <td>Telefonnummer: </td>
         <td>@Model.ThisUser.PhoneNumber</td>
     </tr>
     <tr>
@@ -49,7 +49,7 @@
 
     <tr>
         <td>
-            Roles:
+            Roller:
         </td>
         <td>
             @foreach (var role in Model.ThisUser.Roles)
