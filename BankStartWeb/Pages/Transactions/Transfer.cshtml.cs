@@ -4,6 +4,7 @@ using Bank_AB.Infrastructure.Attributes;
 using Bank_AB.Services.Transactions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using NToastNotify;
 
 namespace Bank_AB.Pages.Transactions;
 
@@ -11,10 +12,12 @@ namespace Bank_AB.Pages.Transactions;
 public class TransferModel : PageModel
 {
     private readonly ITransactionsService _transactionsService;
+    private readonly IToastNotification _toastNotification;
 
-    public TransferModel(ApplicationDbContext context, ITransactionsService transactionsService)
+    public TransferModel(ApplicationDbContext context, ITransactionsService transactionsService, IToastNotification toastNotification)
     {
         _transactionsService = transactionsService;
+        _toastNotification = toastNotification;
     }
 
     public int AccountId { get; set; }
@@ -48,7 +51,11 @@ public class TransferModel : PageModel
                 ModelState.AddModelError(nameof(TransAccountId), "Kontot hittades ej");
 
             if (status == ITransactionsService.ReturnCode.Ok)
-                return RedirectToPage("/Customers/AccountDetails", new {id = accountId});
+            {
+                _toastNotification.AddSuccessToastMessage("Uttaget lyckades");
+                return RedirectToPage("/Customers/AccountDetails", new { id = accountId });
+            }
+
         }
 
 

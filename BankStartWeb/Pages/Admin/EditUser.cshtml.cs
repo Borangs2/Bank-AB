@@ -5,6 +5,7 @@ using Bank_AB.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using NToastNotify;
 
 namespace Bank_AB.Pages.Admin;
 
@@ -12,12 +13,14 @@ public class EditModel : PageModel
 {
     private readonly IUserService _userService;
     private readonly IMapper _mapper;
+    private readonly IToastNotification _toastNotification;
 
 
-    public EditModel(IUserService userService, IMapper mapper)
+    public EditModel(IUserService userService, IMapper mapper, IToastNotification toastNotification)
     {
         _userService = userService;
         _mapper = mapper;
+        _toastNotification = toastNotification;
     }
 
     [BindProperty] public bool IsCashier { get; set; }
@@ -37,6 +40,7 @@ public class EditModel : PageModel
         ThisUser = _mapper.Map(tempUser, ThisUser);
     }
 
+
     public string[] GetRoles(string id)
     {
         var roles = _userService.GetUserRoles(id).Result;
@@ -46,6 +50,7 @@ public class EditModel : PageModel
             IsCashier = true;
         return roles;
     }
+
 
     public IActionResult OnPost(string id)
     {
@@ -72,7 +77,7 @@ public class EditModel : PageModel
 
             //Kolla Modelstate en sista gång
             if (ModelState.IsValid)
-
+                _toastNotification.AddSuccessToastMessage("Ändringar sparade");
                 return RedirectToPage("ViewUser", new {userid = ThisUser.Id});
         }
 

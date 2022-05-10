@@ -5,6 +5,7 @@ using Bank_AB.Services.Transactions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using NToastNotify;
 
 namespace Bank_AB.Pages.Transactions;
 
@@ -12,10 +13,12 @@ namespace Bank_AB.Pages.Transactions;
 public class DepositModel : PageModel
 {
     private readonly ITransactionsService _transactionService;
+    private readonly IToastNotification _toastNotification;
 
-    public DepositModel(ITransactionsService transactionsService)
+    public DepositModel(ITransactionsService transactionsService, IToastNotification toastNotification)
     {
         _transactionService = transactionsService;
+        _toastNotification = toastNotification;
     }
 
     public int AccountId { get; set; }
@@ -48,7 +51,10 @@ public class DepositModel : PageModel
 
 
             if (status == ITransactionsService.ReturnCode.Ok)
+            {
+                _toastNotification.AddSuccessToastMessage("Insättning lyckades");
                 return RedirectToPage("/Customers/AccountDetails", new {id = accountId});
+            }
         }
 
 

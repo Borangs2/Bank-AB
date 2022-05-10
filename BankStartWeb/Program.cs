@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using NToastNotify;
 
 var SecretKey = "cEIMUAemctewoioöÖR2Ä¤TR'¤21QkC#c,RR131R31c;eÖagkaöd";
 
@@ -65,7 +66,11 @@ builder.Services.AddAutoMapper(typeof(IdentityUser));
 builder.Services.AddAutoMapper(typeof(Transaction));
 builder.Services.AddAutoMapper(typeof(Account));
 
-
+builder.Services.AddMvc().AddNToastNotifyToastr(new ToastrOptions()
+{
+    ProgressBar = false,
+    PositionClass = ToastPositions.BottomRight
+});
 
 var app = builder.Build();
 
@@ -95,6 +100,8 @@ app.UseRouting();
 app.UseCors("AllowAll");
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseNToastNotify();
 
 app.MapRazorPages();
 

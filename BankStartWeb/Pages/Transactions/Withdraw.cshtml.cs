@@ -5,6 +5,7 @@ using Bank_AB.Services.Transactions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using NToastNotify;
 
 namespace Bank_AB.Pages.Transactions;
 
@@ -12,10 +13,12 @@ namespace Bank_AB.Pages.Transactions;
 public class WithdrawModel : PageModel
 {
     private readonly ITransactionsService _transactionsService;
+    private readonly IToastNotification _toastNotification;
 
-    public WithdrawModel(ITransactionsService transactionsService)
+    public WithdrawModel(ITransactionsService transactionsService, IToastNotification toastNotification)
     {
         _transactionsService = transactionsService;
+        _toastNotification = toastNotification;
     }
 
     public int AccountId { get; set; }
@@ -51,7 +54,10 @@ public class WithdrawModel : PageModel
 
 
             if (status == ITransactionsService.ReturnCode.Ok)
+            {
+                _toastNotification.AddSuccessToastMessage("Överförnongen lyckades");
                 return RedirectToPage("/Customers/AccountDetails", new {id = accountId});
+            }
         }
 
 

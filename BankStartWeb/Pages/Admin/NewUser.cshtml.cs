@@ -3,16 +3,19 @@ using Bank_AB.Services.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using NToastNotify;
 
 namespace Bank_AB.Pages.Admin;
 
 public class NewModel : PageModel
 {
     private readonly IUserService _userService;
+    private readonly IToastNotification _toastNotification;
 
-    public NewModel(IUserService userService)
+    public NewModel(IUserService userService, IToastNotification toastNotification)
     {
         _userService = userService;
+        _toastNotification = toastNotification;
     }
 
     [BindProperty]
@@ -97,6 +100,7 @@ public class NewModel : PageModel
 
             //Kolla Modelstate en sista gång
             if (ModelState.IsValid)
+                _toastNotification.AddSuccessToastMessage("Den nya användaren har sparats");
                 return RedirectToPage("Index");
         }
 
