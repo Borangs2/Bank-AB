@@ -4,11 +4,13 @@ using Bank_AB.Infrastructure.Paging;
 using Bank_AB.Services.Customers;
 using Bank_AB.Services.Search;
 using Bank_AB.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Bank_AB.Pages.Customers;
 
+[Authorize(Roles = "Administratör, Kassör")]
 public class AccountsModel : PageModel
 {
     private readonly ICustomerService _customerService;
