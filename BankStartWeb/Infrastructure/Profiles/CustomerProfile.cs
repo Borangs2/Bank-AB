@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Bank_AB.Data;
+using Bank_AB.Pages.Customers;
 using Bank_AB.ViewModels;
 
 namespace Bank_AB.Infrastructure.Profiles
@@ -21,6 +22,12 @@ namespace Bank_AB.Infrastructure.Profiles
                 .ForMember(c => c.EmailAddress, opt => opt.MapFrom(t => t.Item1.EmailAddress))
                 .ForMember(c => c.Accounts, opt => opt.MapFrom(t => t.Item2))
                 .ReverseMap();
+
+            CreateMap<Customer, EditCustomerModel>()
+                .ForMember(c => c.Adress, opt => opt.MapFrom(t => t.Streetaddress))
+                .ReverseMap();
+
+
         }
     }
 }

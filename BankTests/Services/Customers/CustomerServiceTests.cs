@@ -1,4 +1,6 @@
-﻿using Bank_AB.Data;
+﻿using AutoMapper;
+using Bank_AB.Data;
+using Bank_AB.Infrastructure.Profiles;
 using Bank_AB.Services.Customers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -8,6 +10,8 @@ namespace BankTests.Services.Customers
     [TestClass]
     public class CustomerServiceTests
     {
+        private static IMapper _mapper;
+
         private readonly CustomerService _sut; //system under test
         private readonly ApplicationDbContext _context;
 
@@ -18,10 +22,17 @@ namespace BankTests.Services.Customers
                 .Options;
             _context = new ApplicationDbContext(options);
 
-            _sut = new CustomerService(_context);
+            _sut = new CustomerService(_context, _mapper);
 
             var data = new TestDataInitilizer(_context);
             data.SeedData();
+
+            if (_mapper == null)
+            {
+                var mappingConfig = new MapperConfiguration(mc => { mc.AddProfile(new CustomerProfile()); });
+                IMapper mapper = mappingConfig.CreateMapper();
+                _mapper = mapper;
+            }
         }
 
         [TestMethod]
@@ -38,5 +49,7 @@ namespace BankTests.Services.Customers
             var result = _sut.GetCustomerFromId(-4);
             Assert.AreEqual(result, null);
         }
+
+
     }
 }
