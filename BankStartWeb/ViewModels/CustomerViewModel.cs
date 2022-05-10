@@ -10,4 +10,6 @@ public class CustomerViewModel
     public string Telephone { get; set; } = null!;
     public string EmailAddress { get; set; } = null!;
     public string City { get; set; } = null!;
+    public string Adress { get; set; } = null!;
+    public string NationalId { get; set; } = null!;
 }

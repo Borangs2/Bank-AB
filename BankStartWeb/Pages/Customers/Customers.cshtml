@@ -54,20 +54,20 @@
             </a>
         </th>
         <th>
-            TelefonNummer
-            <a asp-page="/Customers/Customers" asp-route-col="Telephone" asp-route-order="asc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-pagenum="@Model.PageNum">
+            Adress
+            <a asp-page="/Customers/Customers" asp-route-col="Adress" asp-route-order="asc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-pagenum="@Model.PageNum">
                 <i class="bx bx-sort-a-z"></i>
             </a>
-            <a asp-page="/Customers/Customers" asp-route-col="Telephone" asp-route-order="desc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-pagenum="@Model.PageNum">
+            <a asp-page="/Customers/Customers" asp-route-col="Adress" asp-route-order="desc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-pagenum="@Model.PageNum">
                 <i class="bx bx-sort-z-a"></i>
             </a>
         </th>
         <th>
-            Email
-            <a asp-page="/Customers/Customers" asp-route-col="EmailAddress" asp-route-order="asc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-pagenum="@Model.PageNum">
+            Personnummer
+            <a asp-page="/Customers/Customers" asp-route-col="NationalId" asp-route-order="asc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-pagenum="@Model.PageNum">
                 <i class="bx bx-sort-a-z"></i>
             </a>
-            <a asp-page="/Customers/Customers" asp-route-col="EmailAddress" asp-route-order="desc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-pagenum="@Model.PageNum">
+            <a asp-page="/Customers/Customers" asp-route-col="NationalId" asp-route-order="desc" asp-route-SearchTerm="@Model.SearchTerm" asp-route-pagenum="@Model.PageNum">
                 <i class="bx bx-sort-z-a"></i>
             </a>
         </th>
@@ -81,8 +81,8 @@
             <td>@customer.Surname</td>
             <td>@customer.Country</td>
             <td>@customer.City</td>
-            <td>@customer.Telephone</td>
-            <td>@customer.EmailAddress</td>
+            <td>@customer.Adress</td>
+            <td>@customer.NationalId</td>
             <td>
                 <a class="view-customer-details-btn" asp-page="/Customers/CustomerDetails" asp-route-id="@customer.Id">View Accounts</a>
             </td>
@@ -107,3 +107,8 @@
         }
     </div>
 </div>
+
+<section>
+    <hr/>
+    <a asp-page="NewCustomer">Skapa en ny kund</a>
+</section>

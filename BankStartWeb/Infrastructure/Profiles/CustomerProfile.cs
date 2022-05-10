@@ -8,7 +8,9 @@ namespace Bank_AB.Infrastructure.Profiles
     {
         public CustomerProfile()
         {
-            CreateMap<Customer, CustomerViewModel>().ReverseMap();
+            CreateMap<Customer, CustomerViewModel>()
+                .ForMember(c => c.Adress, opt => opt.MapFrom(t => t.Streetaddress))
+                .ReverseMap();
             CreateMap<Tuple<CustomerViewModel?, List<AccountViewModel>>, ApiCustomerViewModel>()
                 .ForMember(c => c.Id, opt => opt.MapFrom(t => t.Item1.Id))
                 .ForMember(c => c.Givenname, opt => opt.MapFrom(t => t.Item1.Givenname))

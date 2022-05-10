@@ -52,6 +52,8 @@ public class AccountsModel : PageModel
             Surname = tempCust.Surname,
             Country = tempCust.Country,
             City = tempCust.City,
+            Adress = tempCust.Streetaddress,
+            NationalId = tempCust.NationalId,
             Telephone = tempCust.Telephone,
         };
 
