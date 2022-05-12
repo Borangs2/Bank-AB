@@ -26,26 +26,47 @@ namespace Bank_AB.Pages.Customers
         }
 
         [BindProperty]
+        [MaxLength(50, ErrorMessage = "Namnet är är för långt")]
+        [Required(ErrorMessage = "Förnamn är obligatoriskt")]
         public string Givenname { get; set; } = null!;
         [BindProperty]
+        [MaxLength(50, ErrorMessage = "Namnet är är för långt")]
+        [Required(ErrorMessage = "Efternamn är obligatoriskt")]
         public string Surname { get; set; } = null!;
         [BindProperty]
+        [MaxLength(100, ErrorMessage = "Namnet är för långt")]
+        [Required(ErrorMessage = "Land är obligatoriskt")]
         public string Country { get; set; } = null!;
         [BindProperty]
+        [MaxLength(20)]
+        [DataType(DataType.PhoneNumber, ErrorMessage = "Fältet måste innehålla ett telefonnummer")]
         public string Telephone { get; set; } = null!;
         [BindProperty]
+        [DataType(DataType.EmailAddress, ErrorMessage = "Fältet måste innehålla en mejladress")]
+        [Required(ErrorMessage = "Mejladress är obligatoriskt")]
         public string EmailAddress { get; set; } = null!;
         [BindProperty]
+        [MaxLength(90, ErrorMessage = "Namnet är för långt")]
+        [Required(ErrorMessage = "Stad är obligatoriskt")]
         public string City { get; set; } = null!;
         [BindProperty]
+        [MaxLength(60, ErrorMessage = "Namnet är för långt")]
+        [Required(ErrorMessage = "Hemadress är obligatoriskt")]
         public string Adress { get; set; } = null!;
         [BindProperty]
+        [MaxLength(30, ErrorMessage = "Personnumret är för långt")]
+        [Required(ErrorMessage = "Personnummer är obligatoriskt")]
         public string NationalId { get; set; } = null!;
         [BindProperty]
+        [MaxLength(10, ErrorMessage = "Postnumret är för långt")]
+        [Required(ErrorMessage = "Postnummer är obligatoriskt")]
         public string Zipcode { get; set; } = null!;
         [BindProperty]
-        [HiddenInput]
+        [DataType(DataType.Date)]
+        [Required(ErrorMessage = "Födelsedatum är obligatoriskt")]
         public DateTime Birthday { get; set; }
+
+
         [BindProperty]
         [HiddenInput]
         public string Id { get; set; }
