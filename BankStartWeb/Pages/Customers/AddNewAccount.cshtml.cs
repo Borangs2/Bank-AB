@@ -19,12 +19,14 @@ namespace Bank_AB.Pages.Customers
         }
 
         public List<SelectListItem> AccountTypes { get; set; }
+        public int CustomerId { get; set; }
 
         [BindProperty]
         public string AccountType { get; set; }
 
-        public void OnGet()
+        public void OnGet(int id)
         {
+            CustomerId = id;
             GetAccountTypes();
         }
 

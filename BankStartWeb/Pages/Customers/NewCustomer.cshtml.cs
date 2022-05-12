@@ -66,7 +66,7 @@ namespace Bank_AB.Pages.Customers
         public List<SelectListItem> Countries { get; set; }
 
 
-        public void OnGet()
+        public void OnGet(int id)
         {
             Birthday = DateTime.Now.AddYears(-20);
             SetCountries();
