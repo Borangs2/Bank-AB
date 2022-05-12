@@ -66,13 +66,24 @@ namespace Bank_AB.Pages.Customers
             return Page();
         }
 
-        //TODO: Add toast notifications
         public IActionResult OnPost(int id)
         {
-            var editCust = _mapper.Map(this, Customer);
-            var result = _customerService.EditCustomer(editCust, id);
+            if (ModelState.IsValid)
+            {
+                var editCust = _mapper.Map(this, Customer);
+                var result = _customerService.EditCustomer(editCust, id);
 
-            return RedirectToPage("/Customers/CustomerDetails", new{id = id});
+                if (result == ICustomerService.ReturnCode.InvalidCountry)
+                    ModelState.AddModelError(Country, "Valt land är inte giltigt");
+
+                if (ModelState.IsValid)
+                {
+                    _toastNotification.AddSuccessToastMessage("Ändringar sparade");
+                    return RedirectToPage("/Customers/CustomerDetails", new { id = id });
+                }
+            }
+
+            return Page();
         }
 
 

@@ -53,26 +53,36 @@ namespace Bank_AB.Pages.Customers
             SetCountries();
         }
 
-        //TODO: Add toast notifications
         public IActionResult OnPost()
         {
-            var cust = new Customer()
+            if (ModelState.IsValid)
             {
-                Givenname = Givenname,
-                Surname = Surname,
-                Country = Country,
-                Telephone = Telephone,
-                EmailAddress = EmailAddress,
-                City = City,
-                Streetaddress = Adress,
-                NationalId = NationalId,
-                Birthday = Birthday,
-                Zipcode = Zipcode
-            };
-            var result = _customerService.CreateNewCustomer(cust);
+                var cust = new Customer()
+                {
+                    Givenname = Givenname,
+                    Surname = Surname,
+                    Country = Country,
+                    Telephone = Telephone,
+                    EmailAddress = EmailAddress,
+                    City = City,
+                    Streetaddress = Adress,
+                    NationalId = NationalId,
+                    Birthday = Birthday,
+                    Zipcode = Zipcode
+                };
+                var result = _customerService.CreateNewCustomer(cust);
 
+                if(result == ICustomerService.ReturnCode.InvalidCountry)
+                    ModelState.AddModelError(Country, "Valt land är inte giltigt");
 
-            return RedirectToPage("Customers");
+                if (ModelState.IsValid)
+                {
+                    _toastNotification.AddSuccessToastMessage("Kunden har skapats");
+                    return RedirectToPage("Customers");
+                }
+            }
+
+            return Page();
         }
 
 
