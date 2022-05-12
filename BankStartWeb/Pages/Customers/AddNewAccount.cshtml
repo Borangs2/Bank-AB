@@ -1,0 +1,17 @@
+﻿@page
+@model Bank_AB.Pages.Customers.AddNewAccountModel
+@{
+}
+<div class="card w-50 mx-auto add-new-account-card">
+    <div class="card-header">
+        <h2>Skapa konto</h2>
+    </div>
+    <form method="POST" class="card-body">
+        <div class="form-group">
+            <label asp-for="AccountType">Kontotyp: </label>
+            <select class="form-control" asp-for="AccountType" asp-items="@Model.AccountTypes"></select>
+        </div>
+        <button type="submit" class="btn btn-info w-100">Spara</button>
+    </form>
+</div>
+

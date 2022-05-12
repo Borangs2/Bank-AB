@@ -390,17 +390,25 @@ ul {
     
     Edit User
 
-*/
+    */
     .table {
         width: 100%;
     }
 
+    /*
+
+        Add new account
+
+    */
+
+    .add-new-account-card {
+        background-color: lightgray;
+    }
 /*
 
     Transaction
 
 */
-
 .transaction-btn-container {
     margin-top: 50px;
 }

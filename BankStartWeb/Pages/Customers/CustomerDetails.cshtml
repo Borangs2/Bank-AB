@@ -87,6 +87,7 @@
     </tbody>
 </table>
 
+
 @if (Model.TotalPageCount != 1)
 {
     <div class="paging">
@@ -108,5 +109,8 @@
     </div>
 }
 
+<div class="d-flex justify-content-between">
+    <h4 class="w50 float-start">Totalt Saldo: @Model.AmountInAccounts</h4>
+    <a class="btn btn-primary mx-5" asp-page="AddNewAccount" asp-route-id="@Model.Customer.Id">Lägg till ett nytt konto</a>
+</div>
 
-<h4>Totalt Saldo: @Model.AmountInAccounts</h4>

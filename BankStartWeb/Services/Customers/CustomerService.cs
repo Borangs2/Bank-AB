@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Bank_AB.Data;
+using Bank_AB.Services.Accounts;
 using Faker;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,7 +24,10 @@ public class CustomerService : ICustomerService
 
     public List<Account> GetAccounts(int id)
     {
-        return GetCustomerFromId(id).Accounts;
+        var cust = GetCustomerFromId(id);
+        if (cust == null)
+            return null;
+        return cust.Accounts;
     }
 
     public ICustomerService.ReturnCode CreateNewCustomer(Customer customer)
@@ -66,6 +70,24 @@ public class CustomerService : ICustomerService
     }
 
 
+    public ICustomerService.ReturnCode CreateNewAccount(int customerId, string accountType)
+    {
+        Customer customer = GetCustomerFromId(customerId);
+        if (customer == null)
+            return ICustomerService.ReturnCode.InvalidId;
+
+
+        customer.Accounts.Add(new Account
+        {
+            AccountType = accountType,
+            Balance = 0,
+            Created = DateTime.Now,
+            Transactions = new List<Transaction>(),
+        });
+
+        _context.SaveChanges();
+        return ICustomerService.ReturnCode.Ok;
+    }
 
     private string GetCountryCode(string country)
     {
