@@ -199,6 +199,10 @@ ul {
     width: 100%;
 }
 
+#loginBtn > a {
+    padding-left: 30px;
+ }
+
 .logout-btn {
     border: none;
     padding-left: 30px !important;

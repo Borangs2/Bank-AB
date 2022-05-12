@@ -182,7 +182,7 @@ public class DataInitializer
 
     private void CreateRoleIfNotExists(string roleName, string normalizedName)
     {
-        if (_dbContext.Roles.Any(r => r.NormalizedName == roleName))
+        if (_dbContext.Roles.Any(r => r.NormalizedName == normalizedName))
             return;
         _dbContext.Roles.Add(new IdentityRole {Name = roleName, NormalizedName = normalizedName});
         _dbContext.SaveChanges();
