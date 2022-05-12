@@ -29,7 +29,6 @@ namespace BankAPI.Controllers
         {
             var t = _customerService.GetCustomerFromId(id);
             var cust = _mapper.Map(t, new CustomerViewModel());
-            //TODO: Fix Automapper
 
             var accounts = _customerService.GetAccounts(id).Select(a => _mapper.Map(a, new AccountViewModel())).ToList();
 
