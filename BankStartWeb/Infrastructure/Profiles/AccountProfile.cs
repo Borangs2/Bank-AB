@@ -9,6 +9,7 @@ namespace Bank_AB.Infrastructure.Profiles
         public AccountProfile()
         {
             CreateMap<Account, AccountViewModel>().ReverseMap();
+            CreateMap<Account, Account>();
         }
     }
 }

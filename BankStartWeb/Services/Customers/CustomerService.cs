@@ -52,7 +52,6 @@ public class CustomerService : ICustomerService
         return ICustomerService.ReturnCode.Ok;
     }
 
-    //TODO: Fix
     public ICustomerService.ReturnCode EditCustomer(Customer customer, int id)
     {
         var editCustomer = GetCustomerFromId(id);
@@ -60,8 +59,7 @@ public class CustomerService : ICustomerService
         customer.CountryCode = GetCountryCode(customer.Country);
         customer.TelephoneCountryCode = GetTelephoneCountryCode(customer.Country);
 
-        editCustomer = _mapper.Map(customer, editCustomer);
-        _context.Update<Customer>(editCustomer);
+        _mapper.Map(customer, editCustomer);
 
         _context.SaveChanges();
         return ICustomerService.ReturnCode.Ok;

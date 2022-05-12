@@ -62,9 +62,9 @@ builder.Services.AddTransient<ITransactionsService, TransactionsService>();
 builder.Services.AddTransient<IUserService, UserService>();
 
 builder.Services.AddAutoMapper(typeof(CustomerProfile));
-builder.Services.AddAutoMapper(typeof(IdentityUser));
-builder.Services.AddAutoMapper(typeof(Transaction));
-builder.Services.AddAutoMapper(typeof(Account));
+builder.Services.AddAutoMapper(typeof(IdentityUserProfile));
+builder.Services.AddAutoMapper(typeof(TransactionProfile));
+builder.Services.AddAutoMapper(typeof(AccountProfile));
 
 builder.Services.AddMvc().AddNToastNotifyToastr(new ToastrOptions()
 {

@@ -43,9 +43,12 @@ namespace Bank_AB.Pages.Customers
         public string NationalId { get; set; } = null!;
         [BindProperty]
         public string Zipcode { get; set; } = null!;
-
+        [BindProperty]
+        [HiddenInput]
         public DateTime Birthday { get; set; }
-
+        [BindProperty]
+        [HiddenInput]
+        public string Id { get; set; }
         public Customer Customer { get; set; }
 
         public List<SelectListItem> Countries { get; set; }
@@ -67,7 +70,6 @@ namespace Bank_AB.Pages.Customers
         public IActionResult OnPost(int id)
         {
             var editCust = _mapper.Map(this, Customer);
-
             var result = _customerService.EditCustomer(editCust, id);
 
             return RedirectToPage("/Customers/CustomerDetails", new{id = id});

@@ -12,6 +12,7 @@ namespace Bank_AB.Infrastructure.Profiles
             CreateMap<Customer, CustomerViewModel>()
                 .ForMember(c => c.Adress, opt => opt.MapFrom(t => t.Streetaddress))
                 .ReverseMap();
+
             CreateMap<Tuple<CustomerViewModel?, List<AccountViewModel>>, ApiCustomerViewModel>()
                 .ForMember(c => c.Id, opt => opt.MapFrom(t => t.Item1.Id))
                 .ForMember(c => c.Givenname, opt => opt.MapFrom(t => t.Item1.Givenname))
@@ -23,11 +24,12 @@ namespace Bank_AB.Infrastructure.Profiles
                 .ForMember(c => c.Accounts, opt => opt.MapFrom(t => t.Item2))
                 .ReverseMap();
 
+            CreateMap<Customer, Customer>()
+                .ForMember(c => c.Accounts, opt => opt.Ignore());
+
             CreateMap<Customer, EditCustomerModel>()
                 .ForMember(c => c.Adress, opt => opt.MapFrom(t => t.Streetaddress))
                 .ReverseMap();
-
-
         }
     }
 }

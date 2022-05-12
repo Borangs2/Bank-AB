@@ -54,11 +54,17 @@
             <span asp-validation-for="Telephone" class="field-validation-error"></span>
         </div>
     </section>
-        <div class="form-group">
-            <label asp-for="Zipcode">Postnummer: </label>
-            <input class="form-control" asp-for="Zipcode" />
-            <span asp-validation-for="Zipcode" class="field-validation-error"></span>
-        </div>
+    <div class="form-group">
+        <label asp-for="Zipcode">Postnummer: </label>
+        <input class="form-control" asp-for="Zipcode" />
+        <span asp-validation-for="Zipcode" class="field-validation-error"></span>
+    </div>
+
+    <!--Hidden inputs-->
+    <div class="form-group">
+        <input class="form-control" asp-for="Birthday" />
+        <input class="form-control" asp-for="Id" />
+    </div>
     
 
     <div class="d-flex justify-content-center">
