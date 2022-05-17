@@ -27,7 +27,7 @@ public class IndexModel : PageModel
 
     public void GetAllUsers()
     {
-        AllUsers = _context.Users.Select(u => new IdentityUserViewModel
+        AllUsers = _context.Users.ToList().Select(u => new IdentityUserViewModel
         {
             Id = u.Id,
             UserName = u.UserName,
